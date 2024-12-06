@@ -67,7 +67,7 @@ class _AddVerificationDetailsViewState
               ),
             ),
           ),
-          const AppSpacing(v: 178),
+          const AppSpacing(v: 150),
 
           // submit button
           LargeButon(
@@ -95,7 +95,17 @@ class _AddVerificationDetailsViewState
                         )
                       ]);
                     });
-              })
+              }),
+          const AppSpacing(v: 20),
+
+          // Skip button
+          LargeButon(
+            label: 'Skip',
+            ontap: () {},
+            isWhitebutton: true,
+          ),
+
+          const AppSpacing(v: 20),
         ],
       ),
     );

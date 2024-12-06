@@ -30,9 +30,14 @@ class ButtonCustom extends StatelessWidget {
 }
 
 class LargeButon extends StatelessWidget {
-  const LargeButon({super.key, required this.label, required this.ontap});
+  const LargeButon(
+      {super.key,
+      required this.label,
+      required this.ontap,
+      this.isWhitebutton = false});
   final String label;
   final Function()? ontap;
+  final bool isWhitebutton;
 
   @override
   Widget build(BuildContext context) {
@@ -41,14 +46,15 @@ class LargeButon extends StatelessWidget {
       child: Container(
         width: SizeConfig.fromDesignWidth(context, 360),
         height: SizeConfig.fromDesignHeight(context, 52),
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-            color: AppColors.primary),
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
+            border: Border.all(color: AppColors.primary),
+            color: isWhitebutton ? AppColors.background : AppColors.primary),
         child: Center(
             child: AppTextBold(
           text: label,
           fontSize: 16,
-          color: AppColors.white,
+          color: isWhitebutton ? AppColors.primary : AppColors.white,
         )),
       ),
     );
