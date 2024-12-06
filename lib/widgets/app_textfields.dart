@@ -299,12 +299,12 @@ class MainCustomTextfield extends StatelessWidget {
 
 class CustomDropDown extends StatelessWidget {
   const CustomDropDown({super.key, this.items, this.onChanged, this.hint});
-  final List<DropdownMenuItem>? items;
+  final List<DropdownMenuItem<String>>? items;
   final Function(dynamic)? onChanged;
   final String? hint;
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonFormField(
+    return DropdownButtonFormField<String>(
         icon: const Icon(Icons.keyboard_arrow_down_rounded),
         iconEnabledColor: AppColors.black,
         iconDisabledColor: AppColors.black,

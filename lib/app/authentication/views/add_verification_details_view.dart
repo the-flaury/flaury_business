@@ -21,6 +21,7 @@ class AddVerificationDetailsView extends ConsumerStatefulWidget {
 class _AddVerificationDetailsViewState
     extends ConsumerState<AddVerificationDetailsView> {
   @override
+  String? _selsctedValue;
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
@@ -35,9 +36,21 @@ class _AddVerificationDetailsViewState
           AppTextBold(text: 'Verification type', fontSize: 16),
           const AppSpacing(v: 14),
 
-          const CustomDropDown(
+          CustomDropDown(
             hint: 'select category',
+            items: AcceptableIdForVerification.map((item) {
+              return DropdownMenuItem<String>(
+                value: item,
+                child: Text(item),
+              );
+            }).toList(),
+            onChanged: (value) {
+              setState(() {
+                _selsctedValue = value; // Correctly update the selected value
+              });
+            },
           ),
+
           const AppSpacing(v: 20),
 
           // upload banner img
@@ -73,6 +86,7 @@ class _AddVerificationDetailsViewState
           LargeButon(
               label: 'Continue',
               ontap: () {
+                debugPrint(_selsctedValue);
                 showDialog(
                     context: context,
                     builder: (_) {
@@ -111,3 +125,9 @@ class _AddVerificationDetailsViewState
     );
   }
 }
+
+List<String> AcceptableIdForVerification = [
+  'national id',
+  'International Passport',
+  'Drivers license'
+];
