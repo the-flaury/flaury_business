@@ -1,7 +1,12 @@
+import 'package:flaury_business/routes/app_pages.dart';
+import 'package:flaury_business/routes/navigator_helper.dart';
+import 'package:flaury_business/util/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
-  runApp(const MainApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const ProviderScope(child: MainApp()));
 }
 
 class MainApp extends StatelessWidget {
@@ -9,12 +14,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
-    );
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: AppPages.inital,
+        onGenerateRoute: AppPages.onGenerateRoutes,
+        navigatorKey: NavigatorHelper.navigatorKey,
+        theme: ThemeData(
+          scaffoldBackgroundColor: AppColors.background,
+        ));
   }
 }

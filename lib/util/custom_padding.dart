@@ -1,11 +1,11 @@
 import 'package:flaury_business/util/size_config.dart';
 import 'package:flutter/material.dart';
 
-class SymemtricPadding extends StatelessWidget {
+class SymmetricPadding extends StatelessWidget {
   final double h;
   final double v;
   final Widget child;
-  const SymemtricPadding(
+  const SymmetricPadding(
       {super.key, required this.h, required this.v, required this.child});
 
   @override

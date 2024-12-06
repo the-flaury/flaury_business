@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 const String _baseicons = 'assets/icons';
 const String _baseIll = 'assets/illustrations';
 const String _baseimg = 'assets/images';
@@ -42,6 +39,9 @@ const String rightarrow = '$_baseicons/rightVector.svg';
 const String blackFave = '$_baseicons/favourites.svg';
 const String share = '$_baseicons/share.svg';
 const String mapPosition = '$_baseicons/mapPointer.svg';
+const String indicator = '$_baseicons/indicator.svg';
+const String dot = '$_baseicons/dot.svg';
+const String camera = '$_baseicons/camera.svg';
 
 //illustrations
 const String forgotPassword = '$_baseIll/7070628_3275432 1.svg';
@@ -64,49 +64,6 @@ const String profilePlaceholder = '$_baseicons/Frame 40487profile_img.svg';
 const String personImg = '$_baseimg/personImage.png';
 
 //onboarding screen images
-const String onboard1 = '$_baseIll/onboard 1.svg';
-const String onboard2 = '$_baseIll/onboard 2.svg';
-const String onboard3 = '$_baseIll/onboard 3.svg';
-
-class SvgAssets extends StatelessWidget {
-  final double? width, height;
-  final String svg;
-  final ColorFilter? colorFilter;
-
-  const SvgAssets(
-      {super.key,
-      required this.svg,
-      this.height,
-      this.width,
-      this.colorFilter});
-
-  @override
-  Widget build(BuildContext context) {
-    return SvgPicture.asset(
-      svg,
-      width: width,
-      height: height,
-      colorFilter: colorFilter,
-    );
-  }
-}
-
-class SvgAssetsicons extends StatelessWidget {
-  final double? width, height;
-  final String svg;
-  final Function()? ontap;
-  const SvgAssetsicons(
-      {super.key, required this.svg, this.height, this.width, this.ontap});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: ontap,
-      child: SvgPicture.asset(
-        svg,
-        width: width,
-        height: height,
-      ),
-    );
-  }
-}
+const String onboard1 = '$_baseIll/onboard1.svg';
+const String onboard2 = '$_baseIll/onboard2.svg';
+const String onboard3 = '$_baseIll/onboard3.svg';
