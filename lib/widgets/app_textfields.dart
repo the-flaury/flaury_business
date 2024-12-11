@@ -41,6 +41,7 @@ class AuthTextfield extends StatelessWidget {
             style: GoogleFonts.montserrat(
               decoration: TextDecoration.none,
               decorationThickness: 0,
+              fontSize: 12,
             ),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             // obscuringCharacter: '.',
@@ -100,6 +101,11 @@ class RegularTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      style: GoogleFonts.montserrat(
+        decoration: TextDecoration.none,
+        decorationThickness: 0,
+        fontSize: SizeConfig.fontSize(context, 12),
+      ),
       controller: controller,
       keyboardType: keyboardtype,
       decoration: InputDecoration(
@@ -164,9 +170,10 @@ class CustomTextfield extends StatelessWidget {
             height: SizeConfig.fromDesignHeight(context, 8),
           ),
           TextFormField(
-            style: const TextStyle(
+            style: GoogleFonts.montserrat(
               decoration: TextDecoration.none,
               decorationThickness: 0,
+              fontSize: SizeConfig.fontSize(context, 12),
             ),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             // obscuringCharacter: '.',
@@ -242,11 +249,11 @@ class MainCustomTextfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: TextStyle(
-          decoration: TextDecoration.none,
-          decorationThickness: 0,
-          fontFamily: 'Figtree',
-          fontSize: SizeConfig.fontSize(context, 16)),
+      style: GoogleFonts.montserrat(
+        decoration: TextDecoration.none,
+        decorationThickness: 0,
+        fontSize: SizeConfig.fontSize(context, 12),
+      ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       // obscuringCharacter: '.',
       controller: controller,

@@ -176,10 +176,8 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                               ? LargeButon(
                                   label: "Sign up",
                                   ontap: () {
-                                    // sign in logic
-
                                     NavigationService().pushReplacement(
-                                        route: AppRoutes.signin);
+                                        route: AppRoutes.verification);
                                   },
                                 )
                               : const LargeButonDisabled(
@@ -207,7 +205,7 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                                 Navigator.pushNamed(context, AppRoutes.signin);
                               },
                               child: AppTextBold(
-                                  text: 'Login',
+                                  text: 'Log in',
                                   fontSize: 14,
                                   color: AppColors.primary)),
                         ],

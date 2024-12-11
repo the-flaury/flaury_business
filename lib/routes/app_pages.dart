@@ -8,7 +8,7 @@ import 'package:flaury_business/util/app_text_style.dart';
 import 'package:flutter/material.dart';
 
 class AppPages {
-  static String inital = AppRoutes.verification;
+  static String inital = AppRoutes.splash;
   static Route<dynamic> onGenerateRoutes(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.splash:
