@@ -1,3 +1,4 @@
+import 'package:flaury_business/services/digalogue_service.dart';
 import 'package:flaury_business/util/app_colors.dart';
 import 'package:flaury_business/util/app_spacing.dart';
 import 'package:flaury_business/util/app_text_style.dart';
@@ -5,7 +6,6 @@ import 'package:flaury_business/util/images_icons_illustration.dart';
 import 'package:flaury_business/util/size_config.dart';
 import 'package:flaury_business/util/svg_assets.dart';
 import 'package:flaury_business/widgets/app_buttons.dart';
-import 'package:flaury_business/widgets/app_pop_up_dialouges.dart';
 import 'package:flaury_business/widgets/app_textfields.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -20,8 +20,9 @@ class AddVerificationDetailsView extends ConsumerStatefulWidget {
 
 class _AddVerificationDetailsViewState
     extends ConsumerState<AddVerificationDetailsView> {
-  @override
   String? _selsctedValue;
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
@@ -87,28 +88,10 @@ class _AddVerificationDetailsViewState
               label: 'Continue',
               ontap: () {
                 debugPrint(_selsctedValue);
-                showDialog(
-                    context: context,
-                    builder: (_) {
-                      return CustomAlertDialouge(children: [
-                        const AppSpacing(v: 20),
-                        const SvgAssets(svg: newPasswordPop),
-                        const AppSpacing(v: 20),
-                        AppTextBold(
-                          text: 'Successful!',
-                          fontSize: 24,
-                          color: AppColors.primary,
-                          textAlign: TextAlign.center,
-                        ),
-                        const AppSpacing(v: 20),
-                        AppTextRegular(
-                          text: 'You have successfully created your account.',
-                          fontSize: 16,
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.clip,
-                        )
-                      ]);
-                    });
+                DialogService.showCustomDialog(
+                    title: 'Successful!',
+                    message: 'You have successfully created your account.',
+                    svgAsset: newPasswordPop);
               }),
           const AppSpacing(v: 20),
 

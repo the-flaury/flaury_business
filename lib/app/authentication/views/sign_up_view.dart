@@ -1,6 +1,6 @@
 import 'package:flaury_business/app/authentication/providers/password_visibility_provider.dart';
 import 'package:flaury_business/routes/app_routes.dart';
-import 'package:flaury_business/routes/navigator_helper.dart';
+import 'package:flaury_business/services/navigation_service.dart';
 import 'package:flaury_business/util/app_colors.dart';
 import 'package:flaury_business/util/app_text_style.dart';
 import 'package:flaury_business/util/custom_padding.dart';
@@ -178,8 +178,8 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                                   ontap: () {
                                     // sign in logic
 
-                                    NavigatorHelper.pushTo(
-                                        route: AppRoutes.verification);
+                                    NavigationService().pushReplacement(
+                                        route: AppRoutes.signin);
                                   },
                                 )
                               : const LargeButonDisabled(
