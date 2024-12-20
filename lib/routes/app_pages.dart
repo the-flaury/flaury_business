@@ -1,3 +1,6 @@
+import 'package:flaury_business/app/authentication/views/create_new_password.dart';
+import 'package:flaury_business/app/authentication/views/enter_otp_view.dart';
+import 'package:flaury_business/app/authentication/views/forgot_password_view.dart';
 import 'package:flaury_business/app/authentication/views/sign_in._view.dart';
 import 'package:flaury_business/app/authentication/views/sign_up_view.dart';
 import 'package:flaury_business/app/authentication/views/verification_views.dart';
@@ -34,6 +37,23 @@ class AppPages {
       case AppRoutes.verification:
         return MaterialPageRoute(
           builder: (_) => const VerificationView(),
+          settings: settings,
+        );
+
+      case AppRoutes.changepassword:
+        return MaterialPageRoute(
+          builder: (_) => const ForgotPasswordView(),
+          settings: settings,
+        );
+
+      case AppRoutes.otp:
+        return MaterialPageRoute(
+          builder: (_) => const EnterOtpView(),
+          settings: settings,
+        );
+      case AppRoutes.enterNewPassword:
+        return MaterialPageRoute(
+          builder: (_) => const ChangePasswordView(),
           settings: settings,
         );
 

@@ -138,13 +138,13 @@ class _SignInViewState extends ConsumerState<SignInView> {
                       const Spacer(),
                       //forgot password text
                       InkWell(
-                          // onTap: () => Navigator.pushNamed(
-                          //     context, AppRoutes.forgotPassword),
+                          onTap: () => Navigator.pushNamed(
+                              context, AppRoutes.changepassword),
                           child: AppTextBold(
-                        text: 'Forgot Password?',
-                        fontSize: 14,
-                        color: AppColors.primary,
-                      ))
+                            text: 'Forgot Password?',
+                            fontSize: 14,
+                            color: AppColors.primary,
+                          ))
                     ],
                   ),
 
@@ -174,7 +174,7 @@ class _SignInViewState extends ConsumerState<SignInView> {
 
                   SizedBox(
                     height: SizeConfig.fromDesignHeight(context, 20),
-                  ), //a
+                  ),
 
                   //dont have an account create account
                   SizedBox(
