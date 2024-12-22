@@ -88,7 +88,7 @@ class _AddVerificationDetailsViewState
               label: 'Continue',
               ontap: () {
                 debugPrint(_selsctedValue);
-                DialogService.showCustomDialog(
+                DialogService.onSuccessAlertDialouge(
                     title: 'Successful!',
                     message: 'You have successfully created your account.',
                     svgAsset: newPasswordPop);

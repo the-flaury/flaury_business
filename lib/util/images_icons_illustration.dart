@@ -42,6 +42,9 @@ const String mapPosition = '$_baseicons/mapPointer.svg';
 const String indicator = '$_baseicons/indicator.svg';
 const String dot = '$_baseicons/dot.svg';
 const String camera = '$_baseicons/camera.svg';
+const String transactions = '$_baseicons/transactions.svg';
+const String userImagePalceholder = '$_baseicons/user_image_placeholder.svg';
+const String notification = '$_baseicons/notification_bell.svg';
 
 //illustrations
 const String forgotPassword = '$_baseIll/7070628_3275432 1.svg';
@@ -65,5 +68,9 @@ const String personImg = '$_baseimg/personImage.png';
 
 //onboarding screen images
 const String onboard1 = '$_baseIll/onboard1.svg';
+const String advert1 = '$_baseIll/advert 1.svg';
+const String advert2 = '$_baseIll/adevert 2.svg';
+const String advert3 = '$_baseIll/advert 3.svg';
+
 const String onboard2 = '$_baseIll/onboard2.svg';
 const String onboard3 = '$_baseIll/onboard3.svg';

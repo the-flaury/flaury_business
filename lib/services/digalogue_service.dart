@@ -7,7 +7,7 @@ import 'package:flaury_business/widgets/app_pop_up_dialouges.dart';
 import 'package:flutter/material.dart';
 
 class DialogService {
-  static Future<void> showCustomDialog({
+  static Future<void> onSuccessAlertDialouge({
     required String title,
     required String message,
     required String svgAsset,

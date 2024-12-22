@@ -4,6 +4,7 @@ import 'package:flaury_business/app/authentication/views/forgot_password_view.da
 import 'package:flaury_business/app/authentication/views/sign_in._view.dart';
 import 'package:flaury_business/app/authentication/views/sign_up_view.dart';
 import 'package:flaury_business/app/authentication/views/verification_views.dart';
+import 'package:flaury_business/app/dashboard/views/dashboard_view.dart';
 import 'package:flaury_business/app/onboarding/views/onboarding_view.dart';
 import 'package:flaury_business/app/splash/views/splash_view.dart';
 import 'package:flaury_business/routes/app_routes.dart';
@@ -54,6 +55,11 @@ class AppPages {
       case AppRoutes.enterNewPassword:
         return MaterialPageRoute(
           builder: (_) => const ChangePasswordView(),
+          settings: settings,
+        );
+      case AppRoutes.dashboard:
+        return MaterialPageRoute(
+          builder: (_) => const DashboardView(),
           settings: settings,
         );
 

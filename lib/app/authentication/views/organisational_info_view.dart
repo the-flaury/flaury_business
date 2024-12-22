@@ -32,6 +32,12 @@ class _OrganisationalInfoViewState
   }
 
   @override
+  void dispose() {
+    locationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // radio selected bools
     return SingleChildScrollView(

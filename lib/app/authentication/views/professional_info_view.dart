@@ -20,6 +20,13 @@ class _ProfessionalInfoViewState extends ConsumerState<ProfessionalInfoView> {
       TextEditingController();
 
   @override
+  void dispose() {
+    businessNameController.dispose();
+    descriptionNameController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(

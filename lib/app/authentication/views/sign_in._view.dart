@@ -1,5 +1,6 @@
 import 'package:flaury_business/app/authentication/providers/password_visibility_provider.dart';
 import 'package:flaury_business/routes/app_routes.dart';
+import 'package:flaury_business/services/navigation_service.dart';
 import 'package:flaury_business/util/app_colors.dart';
 import 'package:flaury_business/util/app_spacing.dart';
 import 'package:flaury_business/util/app_text_style.dart';
@@ -27,6 +28,13 @@ class _SignInViewState extends ConsumerState<SignInView> {
     setState(() {
       doYouWantToRemember = !doYouWantToRemember;
     });
+  }
+
+  @override
+  void dispose() {
+    _emailcontroller.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -164,8 +172,8 @@ class _SignInViewState extends ConsumerState<SignInView> {
                               label: 'Log in',
                               ontap: () {
                                 //implement sign in logic here
-                                // Navigator.pushNamed(
-                                //     context, AppRoutes.);
+                                NavigationService().pushReplacement(
+                                    route: AppRoutes.dashboard);
                               })
                           : const LargeButonDisabled(
                               label: 'Log in', ontap: null);

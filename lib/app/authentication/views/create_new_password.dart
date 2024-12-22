@@ -140,7 +140,7 @@ class _ChangePasswordViewState extends ConsumerState<ChangePasswordView> {
                 LargeButon(
                     label: 'Continue',
                     ontap: () async {
-                      DialogService.showCustomDialog(
+                      DialogService.onSuccessAlertDialouge(
                         title: 'Successful',
                         message: 'you have succesfully changed your password',
                         svgAsset: newPasswordPop,
