@@ -5,6 +5,11 @@ import 'package:flaury_business/util/app_text_style.dart';
 import 'package:flaury_business/util/svg_assets.dart';
 import 'package:flaury_business/widgets/app_pop_up_dialouges.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+final dialogServiceProvider = Provider<DialogService>((ref) {
+  return DialogService();
+});
 
 class DialogService {
   static Future<void> onSuccessAlertDialouge({
