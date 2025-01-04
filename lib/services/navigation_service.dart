@@ -7,7 +7,7 @@ final navigationServiceProvider = Provider<NavigationService>((ref) {
 });
 
 class NavigationService {
-  final context = NavigatorHelper.navigatorKey;
+  final context = NavigatorHelper().navigatorKey;
 
   Future<dynamic> pushTo({
     String? route,

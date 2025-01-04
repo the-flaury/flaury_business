@@ -8,4 +8,5 @@ class AppRoutes {
   static const String changepassword = '/changepassword';
   static const String enterNewPassword = '/enterpassword';
   static const String dashboard = '/dashboard';
+  static const String noInternet = '/noInternet';
 }

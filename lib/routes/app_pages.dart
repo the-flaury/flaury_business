@@ -5,6 +5,7 @@ import 'package:flaury_business/app/authentication/views/sign_in._view.dart';
 import 'package:flaury_business/app/authentication/views/sign_up_view.dart';
 import 'package:flaury_business/app/authentication/views/verification_views.dart';
 import 'package:flaury_business/app/dashboard/views/dashboard_view.dart';
+import 'package:flaury_business/app/no_internet/views/no_internet_view.dart';
 import 'package:flaury_business/app/onboarding/views/onboarding_view.dart';
 import 'package:flaury_business/app/splash/views/splash_view.dart';
 import 'package:flaury_business/routes/app_routes.dart';
@@ -60,6 +61,12 @@ class AppPages {
       case AppRoutes.dashboard:
         return MaterialPageRoute(
           builder: (_) => const DashboardView(),
+          settings: settings,
+        );
+
+      case AppRoutes.noInternet:
+        return MaterialPageRoute(
+          builder: (_) => const NoInternetView(),
           settings: settings,
         );
 

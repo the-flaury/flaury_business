@@ -1,5 +1,12 @@
-import 'package:flaury_business/services/concetivity_check_service.dart';
+import 'package:flaury_business/services/connectivity_check_service.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+final connectionProvider =
+    StateNotifierProvider<InternetConnectivityNotifier, ConnectivityStatus>(
+        (ref) {
+  final internetService = ref.watch(internetConnectivityCheckerServiceProvider);
+  return InternetConnectivityNotifier(internetService);
+});
 
 enum ConnectivityStatus {
   disconnected,

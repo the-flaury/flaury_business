@@ -17,7 +17,7 @@ class DialogService {
     required String message,
     required String svgAsset,
   }) async {
-    final context = NavigatorHelper.navigatorKey.currentContext!;
+    final context = NavigatorHelper().navigatorKey.currentContext!;
     await showDialog(
       context: context,
       builder: (_) {

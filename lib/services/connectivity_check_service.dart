@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final internetConnectivityCheckerProvider =
+final internetConnectivityCheckerServiceProvider =
     Provider<ConnectivityCheckService>((ref) {
   return ConnectivityCheckService();
 });

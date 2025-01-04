@@ -8,7 +8,7 @@ final navigatorhelperProvider = Provider<NavigatorHelper>((ref) {
 class NavigatorHelper {
   GlobalKey<ScaffoldMessengerState> scafflodMessangerKey =
       GlobalKey<ScaffoldMessengerState>();
-  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   // static dynamic pushTo({
   //   dynamic arguments,
