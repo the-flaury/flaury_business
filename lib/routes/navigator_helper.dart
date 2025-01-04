@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+final navigatorhelperProvider = Provider<NavigatorHelper>((ref) {
+  return NavigatorHelper();
+});
 
 class NavigatorHelper {
   GlobalKey<ScaffoldMessengerState> scafflodMessangerKey =
       GlobalKey<ScaffoldMessengerState>();
-  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   // static dynamic pushTo({
   //   dynamic arguments,
