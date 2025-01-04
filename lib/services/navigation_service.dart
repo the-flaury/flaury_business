@@ -1,5 +1,10 @@
 import 'package:flaury_business/routes/navigator_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+final navigationServiceProvider = Provider<NavigationService>((ref) {
+  return NavigationService();
+});
 
 class NavigationService {
   final context = NavigatorHelper.navigatorKey;

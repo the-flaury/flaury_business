@@ -34,6 +34,10 @@ class SecureStorage {
   }
 }
 
+final sharedPreferenceHelperProvider = Provider<SharedPreferenceHelper>((ref) {
+  return SharedPreferenceHelper();
+});
+
 class SharedPreferenceHelper {
   // Private constructor
   SharedPreferenceHelper._internal();
