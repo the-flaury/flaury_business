@@ -1,5 +1,5 @@
 import 'package:flaury_business/app/dashboard/providers/bottom_nav_state_provider.dart';
-import 'package:flaury_business/app/home/views/homeview.dart';
+import 'package:flaury_business/app/home/views/home_view.dart';
 import 'package:flaury_business/util/app_colors.dart';
 import 'package:flaury_business/util/app_text_style.dart';
 import 'package:flaury_business/util/images_icons_illustration.dart';
