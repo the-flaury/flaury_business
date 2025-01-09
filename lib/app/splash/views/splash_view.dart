@@ -1,4 +1,8 @@
-import 'package:flaury_business/app/splash/controller/splash_controller.dart';
+import 'dart:async';
+
+import 'package:flaury_business/routes/app_routes.dart';
+import 'package:flaury_business/services/navigation_service.dart';
+import 'package:flaury_business/services/shared_preference_secure_storage.dart';
 import 'package:flaury_business/util/app_colors.dart';
 import 'package:flaury_business/util/images_icons_illustration.dart';
 import 'package:flaury_business/util/svg_assets.dart';
@@ -17,7 +21,22 @@ class _SplashViewState extends ConsumerState<SplashView> {
   @override
   void initState() {
     super.initState();
-    SplashController.initalizeApp(ref);
+
+    Timer(const Duration(seconds: 6), () async {
+      bool? onboardingStatus = await ref
+          .read(sharedprefrenceProvider)
+          .getBool('hasviewedOnboarding');
+
+      final navigation = ref.watch(navigationServiceProvider);
+
+      bool hasSeenOnboarding = onboardingStatus == true;
+
+      if (hasSeenOnboarding) {
+        navigation.pushReplacement(route: AppRoutes.signin);
+      } else {
+        navigation.pushReplacement(route: AppRoutes.onboarding);
+      }
+    });
   }
 
   @override

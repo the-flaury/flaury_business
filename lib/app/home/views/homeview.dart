@@ -1,6 +1,8 @@
+import 'package:flaury_business/util/app_colors.dart';
 import 'package:flaury_business/util/app_spacing.dart';
 import 'package:flaury_business/util/app_text_style.dart';
 import 'package:flaury_business/util/custom_padding.dart';
+import 'package:flaury_business/util/date_time_config.dart';
 import 'package:flaury_business/util/images_icons_illustration.dart';
 import 'package:flaury_business/util/size_config.dart';
 import 'package:flaury_business/util/svg_assets.dart';
@@ -15,6 +17,7 @@ class Homeview extends ConsumerStatefulWidget {
 }
 
 class _HomeviewState extends ConsumerState<Homeview> {
+  bool isTotalBalanceVisible = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +52,81 @@ class _HomeviewState extends ConsumerState<Homeview> {
                   )
                 ],
               ),
+              const AppSpacing(v: 10),
+              // account balnce dashboard
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withAlpha(35),
+                        blurRadius: 10,
+                        spreadRadius: 2,
+                        offset: const Offset(0, 0),
+                      ),
+                    ],
+                    color: AppColors.background),
+                padding: EdgeInsets.symmetric(
+                    horizontal: SizeConfig.fromDesignWidth(context, 15),
+                    vertical: SizeConfig.fromDesignHeight(context, 25)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            // toatl balance text
+                            AppTextRegular(text: 'Total balance', fontSize: 14),
+
+                            IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    isTotalBalanceVisible =
+                                        !isTotalBalanceVisible;
+                                  });
+                                },
+                                icon: isTotalBalanceVisible
+                                    ? const Icon(Icons.visibility_off)
+                                    : const Icon(Icons.visibility))
+                          ],
+                        ),
+
+                        // my wallet
+                        Row(
+                          children: [
+                            // toatl balance text
+                            AppTextRegular(text: 'My wallet', fontSize: 14),
+                            const AppSpacing(h: 10),
+                            Container(
+                              padding: EdgeInsets.all(
+                                  SizeConfig.fromDesignHeight(context, 10)),
+                              decoration: const BoxDecoration(
+                                color: AppColors.green,
+                                shape: BoxShape.circle,
+                              ),
+                              child: SvgAssetsicons(
+                                svg: rightArrow,
+                                height:
+                                    SizeConfig.fromDesignHeight(context, 16),
+                                ontap: () {},
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+
+                    // total balance amount
+                    isTotalBalanceVisible
+                        ? AppTextBold(
+                            text: noSimbolInUSFormat.format(50000),
+                            fontSize: 24)
+                        : AppTextBold(text: '******', fontSize: 24)
+                  ],
+                ),
+              )
             ],
           ),
         ),

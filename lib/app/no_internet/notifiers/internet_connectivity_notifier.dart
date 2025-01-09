@@ -16,7 +16,7 @@ enum ConnectivityStatus {
 class InternetConnectivityNotifier extends StateNotifier<ConnectivityStatus> {
   final ConnectivityCheckService _connectivityCheckService;
   InternetConnectivityNotifier(this._connectivityCheckService)
-      : super(ConnectivityStatus.disconnected) {
+      : super(ConnectivityStatus.connected) {
     initalize();
   }
 

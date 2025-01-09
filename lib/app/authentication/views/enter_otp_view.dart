@@ -46,6 +46,8 @@ class _EnterOtpViewState extends ConsumerState<EnterOtpView> {
 
   @override
   Widget build(BuildContext context) {
+    final navigation = ref.watch(navigationServiceProvider);
+
     String getPinFromControllers(
         TextEditingController controller1,
         TextEditingController controller2,
@@ -82,7 +84,7 @@ class _EnterOtpViewState extends ConsumerState<EnterOtpView> {
                       child: SvgAssetsicons(
                         svg: back,
                         ontap: () {
-                          NavigationService().pop();
+                          navigation.pop();
                         },
                       ),
                     ),

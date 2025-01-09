@@ -3,21 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final navigationServiceProvider = Provider<NavigationService>((ref) {
-  return NavigationService();
+  final helper = ref.watch(navigatorhelperProvider);
+  return NavigationService(helper);
 });
 
 class NavigationService {
-  final context = NavigatorHelper().navigatorKey;
+  final NavigatorHelper helper;
+  NavigationService(this.helper);
 
   Future<dynamic> pushTo({
     String? route,
     Widget? page,
     dynamic arguments,
   }) {
+    final context = helper.navigatorKey.currentState;
+    if (context == null) {
+      debugPrint('Error: Navigator context is null. Unable to show SnackBar.');
+      throw Exception('there was an error here ');
+    }
     if (route != null) {
-      return context.currentState!.pushNamed(route, arguments: arguments);
+      return context.pushNamed(route, arguments: arguments);
     } else if (page != null) {
-      return context.currentState!.push(
+      return context.push(
         MaterialPageRoute(builder: (_) => page),
       );
     } else {
@@ -30,11 +37,15 @@ class NavigationService {
     Widget? page,
     dynamic arguments,
   }) {
+    final context = helper.navigatorKey.currentState;
+    if (context == null) {
+      debugPrint('Error: Navigator context is null. Unable to show SnackBar.');
+      throw Exception('there was an error here ');
+    }
     if (route != null) {
-      return context.currentState!
-          .pushReplacementNamed(route, arguments: arguments);
+      return context.pushReplacementNamed(route, arguments: arguments);
     } else if (page != null) {
-      return context.currentState!.pushReplacement(
+      return context.pushReplacement(
         MaterialPageRoute(builder: (_) => page),
       );
     } else {
@@ -43,6 +54,11 @@ class NavigationService {
   }
 
   dynamic pop() {
-    context.currentState?.pop();
+    final context = helper.navigatorKey.currentState;
+    if (context == null) {
+      debugPrint('Error: Navigator context is null. Unable to show SnackBar.');
+      throw Exception('there was an error here ');
+    }
+    context.pop();
   }
 }
