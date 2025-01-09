@@ -15,9 +15,13 @@ class SplashView extends ConsumerStatefulWidget {
 
 class _SplashViewState extends ConsumerState<SplashView> {
   @override
-  void initState() {
-    super.initState();
-    SplashController.initalizeApp(ref);
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    // Defer initialization to ensure dependencies are resolved
+    Future.microtask(() async {
+      await SplashController.initalizeApp(ref);
+    });
   }
 
   @override
