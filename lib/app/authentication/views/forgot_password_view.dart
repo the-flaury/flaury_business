@@ -28,6 +28,8 @@ class _ForgotPasswordViewState extends ConsumerState<ForgotPasswordView> {
 
   @override
   Widget build(BuildContext context) {
+    final navigation = ref.watch(navigationServiceProvider);
+
     return Scaffold(
         body: SafeArea(
       child: SymmetricPadding(
@@ -47,7 +49,7 @@ class _ForgotPasswordViewState extends ConsumerState<ForgotPasswordView> {
                   SvgAssetsicons(
                     svg: back,
                     ontap: () {
-                      NavigationService().pop();
+                      navigation.pop();
                     },
                   ),
                   SizedBox(
@@ -96,7 +98,7 @@ class _ForgotPasswordViewState extends ConsumerState<ForgotPasswordView> {
 
                     // then navigate to otp screen
 
-                    NavigationService().pushTo(
+                    navigation.pushTo(
                         page: EnterOtpView(
                       emailvalue: emailController.text,
                     ));

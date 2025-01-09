@@ -38,6 +38,8 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
   @override
   Widget build(BuildContext context) {
     final obscurePassword = ref.watch(passwordvisible);
+    final navigation = ref.watch(navigationServiceProvider);
+
     return Scaffold(
       backgroundColor: AppColors.background,
       resizeToAvoidBottomInset: false,
@@ -176,7 +178,7 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                               ? LargeButon(
                                   label: "Sign up",
                                   ontap: () {
-                                    NavigationService().pushReplacement(
+                                    navigation.pushReplacement(
                                         route: AppRoutes.verification);
                                   },
                                 )

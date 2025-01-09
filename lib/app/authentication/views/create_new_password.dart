@@ -13,7 +13,7 @@ import 'package:flaury_business/widgets/app_textfields.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ChangePasswordView extends StatefulHookConsumerWidget {
+class ChangePasswordView extends ConsumerStatefulWidget {
   const ChangePasswordView({super.key});
 
   @override
@@ -38,6 +38,7 @@ class _ChangePasswordViewState extends ConsumerState<ChangePasswordView> {
   Widget build(BuildContext context) {
     final obscurePassword = ref.watch(passwordsvisible);
     final obscurePasswords = ref.watch(confirmvisible);
+    final navigation = ref.watch(navigationServiceProvider);
 
     return Scaffold(
       body: SafeArea(
@@ -59,7 +60,7 @@ class _ChangePasswordViewState extends ConsumerState<ChangePasswordView> {
                     SvgAssetsicons(
                       svg: back,
                       ontap: () {
-                        NavigationService().pop();
+                        navigation.pop();
                       },
                     ),
                     const AppSpacing(
@@ -148,8 +149,7 @@ class _ChangePasswordViewState extends ConsumerState<ChangePasswordView> {
                       //add email verification logic here
 
                       await Future.delayed(const Duration(seconds: 6));
-                      NavigationService()
-                          .pushReplacement(route: AppRoutes.signin);
+                      navigation.pushReplacement(route: AppRoutes.signin);
                       //logic
                     }),
               ],

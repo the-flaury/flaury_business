@@ -12,7 +12,7 @@ import 'package:flaury_business/widgets/app_textfields.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SignInView extends StatefulHookConsumerWidget {
+class SignInView extends ConsumerStatefulWidget {
   const SignInView({super.key});
 
   @override
@@ -40,6 +40,8 @@ class _SignInViewState extends ConsumerState<SignInView> {
   @override
   Widget build(BuildContext context) {
     final visible = ref.watch(passwordvisible);
+    final navigation = ref.watch(navigationServiceProvider);
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SingleChildScrollView(
@@ -172,7 +174,7 @@ class _SignInViewState extends ConsumerState<SignInView> {
                               label: 'Log in',
                               ontap: () {
                                 //implement sign in logic here
-                                NavigationService().pushReplacement(
+                                navigation.pushReplacement(
                                     route: AppRoutes.dashboard);
                               })
                           : const LargeButonDisabled(
