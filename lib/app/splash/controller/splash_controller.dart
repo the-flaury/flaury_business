@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SplashController {
   static initalizeApp(WidgetRef ref) {
+    final navigaton = ref.watch(navigationServiceProvider);
     Timer(const Duration(seconds: 6), () async {
       bool? onboardingStatus = await ref
           .read(sharedprefrenceProvider)
@@ -14,9 +15,9 @@ class SplashController {
       bool hasSeenOnboarding = onboardingStatus == true;
 
       if (hasSeenOnboarding) {
-        NavigationService().pushReplacement(route: AppRoutes.signin);
+        navigaton.pushReplacement(route: AppRoutes.signin);
       } else {
-        NavigationService().pushReplacement(route: AppRoutes.onboarding);
+        navigaton.pushReplacement(route: AppRoutes.onboarding);
       }
     });
   }
