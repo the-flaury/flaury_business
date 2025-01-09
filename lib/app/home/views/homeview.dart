@@ -2,6 +2,7 @@ import 'package:flaury_business/util/app_colors.dart';
 import 'package:flaury_business/util/app_spacing.dart';
 import 'package:flaury_business/util/app_text_style.dart';
 import 'package:flaury_business/util/custom_padding.dart';
+import 'package:flaury_business/util/date_time_config.dart';
 import 'package:flaury_business/util/images_icons_illustration.dart';
 import 'package:flaury_business/util/size_config.dart';
 import 'package:flaury_business/util/svg_assets.dart';
@@ -119,7 +120,9 @@ class _HomeviewState extends ConsumerState<Homeview> {
 
                     // total balance amount
                     isTotalBalanceVisible
-                        ? AppTextBold(text: '100,000', fontSize: 24)
+                        ? AppTextBold(
+                            text: noSimbolInUSFormat.format(50000),
+                            fontSize: 24)
                         : AppTextBold(text: '******', fontSize: 24)
                   ],
                 ),
