@@ -19,4 +19,8 @@ class AppColors {
   static const Color grey100 = Color.fromRGBO(185, 185, 185, 1);
   static const Color greychat = Color.fromRGBO(248, 244, 217, 1);
   static const Color green = Color.fromRGBO(147, 197, 114, 0.5);
+  static const Color transGreen = Color.fromRGBO(67, 166, 58, 1);
+  static const Color serviceBlue = Color.fromRGBO(54, 81, 175, 1);
+  static const Color prmotionsPurple = Color.fromRGBO(140, 58, 169, 1);
+  static const Color appBarGrey = Color.fromRGBO(241, 241, 241, 0.6);
 }
