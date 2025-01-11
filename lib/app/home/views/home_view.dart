@@ -118,6 +118,35 @@ class _HomeviewState extends ConsumerState<Homeview> {
                   cancelledBookingsValue: "140",
                   pendingBookingsValue: "20",
                   succesfulBookingsvalue: "34"),
+
+              const AppSpacing(v: 24),
+
+              // transactions
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  AppTextBold(text: 'Transactions', fontSize: 16),
+                  InkWell(
+                    onTap: () {
+                      // navigate to transactions page
+                    },
+                    child: Row(
+                      children: [
+                        AppTextSemiBold(
+                          text: "View all",
+                          fontSize: 12,
+                          color: AppColors.primary,
+                        ),
+                        const AppSpacing(h: 5),
+                        SvgAssets(
+                          svg: rightarrow,
+                          height: SizeConfig.fromDesignHeight(context, 8),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              )
             ],
           ),
         ),
