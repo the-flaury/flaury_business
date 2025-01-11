@@ -1,12 +1,12 @@
 import 'package:flaury_business/app/home/widgets/booking_statics_widget.dart';
 import 'package:flaury_business/app/home/widgets/hompage_action_buttons.dart';
 import 'package:flaury_business/app/home/widgets/show_balance_card.dart';
+import 'package:flaury_business/app/home/widgets/transaction_tile.dart';
 import 'package:flaury_business/routes/app_routes.dart';
 import 'package:flaury_business/util/app_colors.dart';
 import 'package:flaury_business/util/app_spacing.dart';
 import 'package:flaury_business/util/app_text_style.dart';
 import 'package:flaury_business/util/custom_padding.dart';
-import 'package:flaury_business/util/date_time_config.dart';
 import 'package:flaury_business/util/images_icons_illustration.dart';
 import 'package:flaury_business/util/size_config.dart';
 import 'package:flaury_business/util/svg_assets.dart';
@@ -150,6 +150,8 @@ class _HomeviewState extends ConsumerState<Homeview> {
                   ],
                 ),
                 const AppSpacing(v: 16),
+
+                for (int i = 0; i < 5; i++) ...[const TransactionTile()]
               ],
             ),
           ),
