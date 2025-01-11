@@ -5,6 +5,9 @@ import 'package:flaury_business/app/authentication/views/sign_in._view.dart';
 import 'package:flaury_business/app/authentication/views/sign_up_view.dart';
 import 'package:flaury_business/app/authentication/views/verification_views.dart';
 import 'package:flaury_business/app/dashboard/views/dashboard_view.dart';
+import 'package:flaury_business/app/home/views/manage_promotions_view.dart';
+import 'package:flaury_business/app/home/views/manage_service_view.dart';
+import 'package:flaury_business/app/home/views/transaction_view.dart';
 import 'package:flaury_business/app/no_internet/views/no_internet_view.dart';
 import 'package:flaury_business/app/onboarding/views/onboarding_view.dart';
 import 'package:flaury_business/app/splash/views/splash_view.dart';
@@ -67,6 +70,24 @@ class AppPages {
       case AppRoutes.noInternet:
         return MaterialPageRoute(
           builder: (_) => const NoInternetView(),
+          settings: settings,
+        );
+
+      case AppRoutes.managePromotons:
+        return MaterialPageRoute(
+          builder: (_) => const ManagePromotionsView(),
+          settings: settings,
+        );
+
+      case AppRoutes.manageServices:
+        return MaterialPageRoute(
+          builder: (_) => const ManageServiceView(),
+          settings: settings,
+        );
+
+      case AppRoutes.transactions:
+        return MaterialPageRoute(
+          builder: (_) => const TransactionView(),
           settings: settings,
         );
 

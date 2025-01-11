@@ -45,6 +45,8 @@ const String camera = '$_baseicons/camera.svg';
 const String transactions = '$_baseicons/transactions.svg';
 const String userImagePalceholder = '$_baseicons/user_image_placeholder.svg';
 const String notification = '$_baseicons/notification_bell.svg';
+const String arrowDownRed = '$_baseicons/arrow_down_red.svg';
+const String arrowUpGreen = '$_baseicons/arrow_up_green.svg';
 
 //illustrations
 const String forgotPassword = '$_baseIll/7070628_3275432 1.svg';
