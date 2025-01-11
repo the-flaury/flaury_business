@@ -6,6 +6,7 @@ import 'package:flaury_business/util/app_colors.dart';
 import 'package:flaury_business/util/app_spacing.dart';
 import 'package:flaury_business/util/app_text_style.dart';
 import 'package:flaury_business/util/custom_padding.dart';
+import 'package:flaury_business/util/date_time_config.dart';
 import 'package:flaury_business/util/images_icons_illustration.dart';
 import 'package:flaury_business/util/size_config.dart';
 import 'package:flaury_business/util/svg_assets.dart';
@@ -49,105 +50,146 @@ class _HomeviewState extends ConsumerState<Homeview> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SymmetricPadding(
-          h: 20,
-          v: 0,
-          child: Column(
-            children: [
-              const AppSpacing(v: 14),
-              // app bar
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(children: [
-                    SvgAssets(
-                      svg: profilePlaceholder,
-                      height: SizeConfig.fromDesignHeight(context, 50),
-                    ),
-                    const AppSpacing(h: 20),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AppTextSemiBold(text: 'Good morning ', fontSize: 14),
-                        AppTextBold(text: 'Becca Baruch', fontSize: 16),
-                      ],
-                    ),
-                  ]),
-                  SvgAssetsicons(
-                    svg: notification,
-                    height: SizeConfig.fromDesignHeight(context, 24),
-                  )
-                ],
-              ),
-              const AppSpacing(v: 20),
-              // account balance card
-              ShowBalanceCard(
-                accountbalance: "300000",
-                onTap: () {
-                  // navigate to the my wallet screen
-                },
-              ),
-
-              const AppSpacing(v: 30),
-
-              // cta buttons on home screen
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  for (var i = 0; i < actonButtons.length; i++) ...[
-                    Expanded(
-                      child: HompageActionButton(
-                        color: actonButtons[i]['color'],
-                        route: actonButtons[i]['pageroute'],
-                        icon: actonButtons[i]['icon'],
-                        label: actonButtons[i]['label'],
+        child: SingleChildScrollView(
+          child: SymmetricPadding(
+            h: 20,
+            v: 0,
+            child: Column(
+              children: [
+                const AppSpacing(v: 14),
+                // app bar
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(children: [
+                      SvgAssets(
+                        svg: profilePlaceholder,
+                        height: SizeConfig.fromDesignHeight(context, 50),
                       ),
-                    ),
-                    if (i < actonButtons.length - 1)
-                      const AppSpacing(
-                        h: 10,
+                      const AppSpacing(h: 20),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AppTextSemiBold(text: 'Good morning ', fontSize: 14),
+                          AppTextBold(text: 'Becca Baruch', fontSize: 16),
+                        ],
                       ),
+                    ]),
+                    SvgAssetsicons(
+                      svg: notification,
+                      height: SizeConfig.fromDesignHeight(context, 24),
+                    )
                   ],
-                ],
-              ),
-              const AppSpacing(v: 20),
+                ),
+                const AppSpacing(v: 20),
+                // account balance card
+                ShowBalanceCard(
+                  accountbalance: "300000",
+                  onTap: () {
+                    // navigate to the my wallet screen
+                  },
+                ),
 
-              // booking statistics
-              const BookingStaticsWidget(
-                  appointmentValue: "300",
-                  cancelledBookingsValue: "140",
-                  pendingBookingsValue: "20",
-                  succesfulBookingsvalue: "34"),
+                const AppSpacing(v: 30),
 
-              const AppSpacing(v: 24),
-
-              // transactions
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AppTextBold(text: 'Transactions', fontSize: 16),
-                  InkWell(
-                    onTap: () {
-                      // navigate to transactions page
-                    },
-                    child: Row(
-                      children: [
-                        AppTextSemiBold(
-                          text: "View all",
-                          fontSize: 12,
-                          color: AppColors.primary,
+                // cta buttons on home screen
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    for (var i = 0; i < actonButtons.length; i++) ...[
+                      Expanded(
+                        child: HompageActionButton(
+                          color: actonButtons[i]['color'],
+                          route: actonButtons[i]['pageroute'],
+                          icon: actonButtons[i]['icon'],
+                          label: actonButtons[i]['label'],
                         ),
-                        const AppSpacing(h: 5),
-                        SvgAssets(
-                          svg: rightarrow,
-                          height: SizeConfig.fromDesignHeight(context, 8),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              )
-            ],
+                      ),
+                      if (i < actonButtons.length - 1)
+                        const AppSpacing(
+                          h: 10,
+                        ),
+                    ],
+                  ],
+                ),
+                const AppSpacing(v: 20),
+
+                // booking statistics
+                const BookingStaticsWidget(
+                    appointmentValue: "300",
+                    cancelledBookingsValue: "140",
+                    pendingBookingsValue: "20",
+                    succesfulBookingsvalue: "34"),
+
+                const AppSpacing(v: 24),
+
+                // transactions listview appbar
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AppTextBold(text: 'Transactions', fontSize: 16),
+                    InkWell(
+                      onTap: () {
+                        // navigate to transactions page
+                      },
+                      child: Row(
+                        children: [
+                          AppTextSemiBold(
+                            text: "View all",
+                            fontSize: 12,
+                            color: AppColors.primary,
+                          ),
+                          const AppSpacing(h: 5),
+                          SvgAssets(
+                            svg: rightarrow,
+                            height: SizeConfig.fromDesignHeight(context, 8),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                const AppSpacing(v: 16),
+
+                SizedBox(
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              const SvgAssets(svg: arrowUpGreen),
+                              AppTextSemiBold(
+                                  text: 'Transfer to wallet', fontSize: 12)
+                            ],
+                          ),
+                          AppTextBold(
+                              text: symbolNairaFormatted.format(30000),
+                              fontSize: 12)
+                        ],
+                      ),
+                      const AppSpacing(v: 4),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          AppTextSemiBold(
+                              text:
+                                  'Pella Sophia |${formatCurrentDate(DateTime.now())}',
+                              fontSize: 12),
+                          AppTextBold(
+                            text: 'Succesful',
+                            fontSize: 12,
+                            color: AppColors.transGreen,
+                          )
+                        ],
+                      ),
+                      const Divider(color: AppColors.grey)
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

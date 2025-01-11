@@ -95,7 +95,8 @@ class _ShowBalanceCardState extends ConsumerState<ShowBalanceCard> {
           // total balance amount
           isTotalBalanceVisible
               ? AppTextBold(
-                  text: noSimbolInUSFormat.format(mainaccBalance), fontSize: 24)
+                  text: symbolNairaFormatted.format(mainaccBalance),
+                  fontSize: 24)
               : AppTextBold(text: '******', fontSize: 24)
         ],
       ),
