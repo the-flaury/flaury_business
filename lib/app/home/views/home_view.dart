@@ -150,44 +150,6 @@ class _HomeviewState extends ConsumerState<Homeview> {
                   ],
                 ),
                 const AppSpacing(v: 16),
-
-                SizedBox(
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              const SvgAssets(svg: arrowUpGreen),
-                              AppTextSemiBold(
-                                  text: 'Transfer to wallet', fontSize: 12)
-                            ],
-                          ),
-                          AppTextBold(
-                              text: symbolNairaFormatted.format(30000),
-                              fontSize: 12)
-                        ],
-                      ),
-                      const AppSpacing(v: 4),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          AppTextSemiBold(
-                              text:
-                                  'Pella Sophia |${formatCurrentDate(DateTime.now())}',
-                              fontSize: 12),
-                          AppTextBold(
-                            text: 'Succesful',
-                            fontSize: 12,
-                            color: AppColors.transGreen,
-                          )
-                        ],
-                      ),
-                      const Divider(color: AppColors.grey)
-                    ],
-                  ),
-                )
               ],
             ),
           ),
