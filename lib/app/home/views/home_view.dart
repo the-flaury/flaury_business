@@ -1,3 +1,4 @@
+import 'package:flaury_business/app/home/widgets/booking_statics_widget.dart';
 import 'package:flaury_business/app/home/widgets/hompage_action_buttons.dart';
 import 'package:flaury_business/app/home/widgets/show_balance_card.dart';
 import 'package:flaury_business/routes/app_routes.dart';
@@ -112,76 +113,11 @@ class _HomeviewState extends ConsumerState<Homeview> {
               const AppSpacing(v: 20),
 
               // booking statistics
-
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: AppColors.grey)),
-                padding:
-                    EdgeInsets.all(SizeConfig.fromDesignHeight(context, 10)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppTextBold(text: "Booking Statistics", fontSize: 16),
-                    const AppSpacing(v: 4),
-                    AppTextRegular(text: "last 30 days", fontSize: 10),
-                    const AppSpacing(v: 12),
-                    Center(
-                      child: SizedBox(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Column(
-                              children: [
-                                AppTextRegular(
-                                  text: 'Appointments',
-                                  fontSize: 10,
-                                  color: AppColors.grey,
-                                ),
-                                const AppSpacing(v: 12),
-                                AppTextBold(text: '720', fontSize: 16),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                AppTextRegular(
-                                  text: 'Successful',
-                                  fontSize: 10,
-                                  color: AppColors.grey,
-                                ),
-                                const AppSpacing(v: 12),
-                                AppTextBold(text: '100', fontSize: 16),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                AppTextRegular(
-                                  text: 'Cancelled',
-                                  fontSize: 10,
-                                  color: AppColors.grey,
-                                ),
-                                const AppSpacing(v: 12),
-                                AppTextBold(text: '10', fontSize: 16),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                AppTextRegular(
-                                  text: 'Pending',
-                                  fontSize: 10,
-                                  color: AppColors.grey,
-                                ),
-                                const AppSpacing(v: 12),
-                                AppTextBold(text: '30', fontSize: 16),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              )
+              const BookingStaticsWidget(
+                  appointmentValue: "300",
+                  cancelledBookingsValue: "140",
+                  pendingBookingsValue: "20",
+                  succesfulBookingsvalue: "34"),
             ],
           ),
         ),
