@@ -1,3 +1,4 @@
+import 'package:flaury_business/app/home/widgets/hompage_action_buttons.dart';
 import 'package:flaury_business/app/home/widgets/show_balance_card.dart';
 import 'package:flaury_business/routes/app_routes.dart';
 import 'package:flaury_business/util/app_colors.dart';
@@ -18,6 +19,30 @@ class Homeview extends ConsumerStatefulWidget {
 }
 
 class _HomeviewState extends ConsumerState<Homeview> {
+  List<Map<String, dynamic>> actonButtons = [
+    {
+      "icon": transactions,
+      "label": "transactions",
+      "sublabel": 'Check your transaction ',
+      "color": AppColors.transGreen,
+      "pageroute": AppRoutes.transactions
+    },
+    {
+      "icon": cupon,
+      "label": "Services",
+      "sublabel": 'Add and update all your services',
+      "color": AppColors.serviceBlue,
+      "pageroute": AppRoutes.manageServices
+    },
+    {
+      "icon": promotions,
+      "label": "Promotions",
+      "sublabel": 'Add and update your coupon codes ',
+      "color": AppColors.prmotionsPurple,
+      "pageroute": AppRoutes.managePromotons
+    }
+  ];
+
   bool isTotalBalanceVisible = false;
   @override
   Widget build(BuildContext context) {
@@ -53,7 +78,7 @@ class _HomeviewState extends ConsumerState<Homeview> {
                   )
                 ],
               ),
-              const AppSpacing(v: 10),
+              const AppSpacing(v: 20),
               // account balance card
               ShowBalanceCard(
                 accountbalance: "300000",
@@ -64,123 +89,98 @@ class _HomeviewState extends ConsumerState<Homeview> {
 
               const AppSpacing(v: 30),
 
-              // transactions service promotions buttons
+              // cta buttons on home screen
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    width: SizeConfig.fromDesignWidth(context, 105),
-                    padding: EdgeInsets.only(
-                      left: SizeConfig.fromDesignWidth(context, 10),
-                      right: SizeConfig.fromDesignWidth(context, 20),
-                      top: SizeConfig.fromDesignWidth(context, 10),
-                      bottom: SizeConfig.fromDesignWidth(context, 20),
+                  for (var i = 0; i < actonButtons.length; i++) ...[
+                    Expanded(
+                      child: HompageActionButton(
+                        color: actonButtons[i]['color'],
+                        route: actonButtons[i]['pageroute'],
+                        icon: actonButtons[i]['icon'],
+                        label: actonButtons[i]['label'],
+                      ),
                     ),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: AppColors.transGreen)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(
-                              SizeConfig.fromDesignHeight(context, 10)),
-                          decoration: const BoxDecoration(
-                              color: AppColors.transGreen,
-                              shape: BoxShape.circle),
-                          child: SvgAssets(
-                            svg: promotions,
-                            height: SizeConfig.fromDesignHeight(context, 20),
-                            colorFilter: const ColorFilter.mode(
-                                AppColors.white, BlendMode.srcIn),
-                          ),
-                        ),
-                        const AppSpacing(v: 10),
-                        AppTextBold(text: "Services", fontSize: 10),
-                        AppTextRegular(
-                            text: "Add and update all your services.",
-                            textAlign: TextAlign.start,
-                            overflow: TextOverflow.clip,
-                            fontSize: 6)
-                      ],
-                    ),
-                  ),
-                  const AppSpacing(h: 10),
-                  Container(
-                    width: SizeConfig.fromDesignWidth(context, 105),
-                    padding: EdgeInsets.only(
-                      left: SizeConfig.fromDesignWidth(context, 10),
-                      right: SizeConfig.fromDesignWidth(context, 20),
-                      top: SizeConfig.fromDesignWidth(context, 10),
-                      bottom: SizeConfig.fromDesignWidth(context, 20),
-                    ),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: AppColors.transGreen)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(
-                              SizeConfig.fromDesignHeight(context, 10)),
-                          decoration: const BoxDecoration(
-                              color: AppColors.transGreen,
-                              shape: BoxShape.circle),
-                          child: SvgAssets(
-                            svg: promotions,
-                            height: SizeConfig.fromDesignHeight(context, 20),
-                            colorFilter: const ColorFilter.mode(
-                                AppColors.white, BlendMode.srcIn),
-                          ),
-                        ),
-                        const AppSpacing(v: 10),
-                        AppTextBold(text: "Promotions", fontSize: 10),
-                        AppTextRegular(
-                            text: "Check your transaction ",
-                            textAlign: TextAlign.start,
-                            overflow: TextOverflow.clip,
-                            fontSize: 6)
-                      ],
-                    ),
-                  ),
-                  const AppSpacing(h: 10),
-                  Container(
-                    width: SizeConfig.fromDesignWidth(context, 105),
-                    padding: EdgeInsets.only(
-                      left: SizeConfig.fromDesignWidth(context, 10),
-                      right: SizeConfig.fromDesignWidth(context, 20),
-                      top: SizeConfig.fromDesignWidth(context, 10),
-                      bottom: SizeConfig.fromDesignWidth(context, 20),
-                    ),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: AppColors.transGreen)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(
-                              SizeConfig.fromDesignHeight(context, 10)),
-                          decoration: const BoxDecoration(
-                              color: AppColors.transGreen,
-                              shape: BoxShape.circle),
-                          child: SvgAssets(
-                            svg: promotions,
-                            height: SizeConfig.fromDesignHeight(context, 20),
-                            colorFilter: const ColorFilter.mode(
-                                AppColors.white, BlendMode.srcIn),
-                          ),
-                        ),
-                        const AppSpacing(v: 10),
-                        AppTextBold(text: "Transactions", fontSize: 10),
-                        AppTextRegular(
-                            text: "Add and update your coupon codes ",
-                            textAlign: TextAlign.start,
-                            overflow: TextOverflow.clip,
-                            fontSize: 6)
-                      ],
-                    ),
-                  ),
+                    if (i < actonButtons.length - 1)
+                      const AppSpacing(
+                        h: 10,
+                      ),
+                  ],
                 ],
+              ),
+              const AppSpacing(v: 20),
+
+              // booking statistics
+
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: AppColors.grey)),
+                padding:
+                    EdgeInsets.all(SizeConfig.fromDesignHeight(context, 10)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppTextBold(text: "Booking Statistics", fontSize: 16),
+                    const AppSpacing(v: 4),
+                    AppTextRegular(text: "last 30 days", fontSize: 10),
+                    const AppSpacing(v: 12),
+                    Center(
+                      child: SizedBox(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              children: [
+                                AppTextRegular(
+                                  text: 'Appointments',
+                                  fontSize: 10,
+                                  color: AppColors.grey,
+                                ),
+                                const AppSpacing(v: 12),
+                                AppTextBold(text: '720', fontSize: 16),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                AppTextRegular(
+                                  text: 'Successful',
+                                  fontSize: 10,
+                                  color: AppColors.grey,
+                                ),
+                                const AppSpacing(v: 12),
+                                AppTextBold(text: '100', fontSize: 16),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                AppTextRegular(
+                                  text: 'Cancelled',
+                                  fontSize: 10,
+                                  color: AppColors.grey,
+                                ),
+                                const AppSpacing(v: 12),
+                                AppTextBold(text: '10', fontSize: 16),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                AppTextRegular(
+                                  text: 'Pending',
+                                  fontSize: 10,
+                                  color: AppColors.grey,
+                                ),
+                                const AppSpacing(v: 12),
+                                AppTextBold(text: '30', fontSize: 16),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               )
             ],
           ),
@@ -189,25 +189,3 @@ class _HomeviewState extends ConsumerState<Homeview> {
     );
   }
 }
-
-List<Map<String, dynamic>> actonButtons = [
-  {
-    "icon": transactions,
-    "label": "transactions",
-    "sublabel": 'Check your transaction ',
-    "color": AppColors.transGreen,
-    "pageroute": AppRoutes.changepassword
-  },
-  {
-    "icon": cupon,
-    "label": "transactions",
-    "sublabel": 'Add and update all your services',
-    "color": AppColors.transGreen,
-  },
-  {
-    "icon": promotions,
-    "label": "transactions",
-    "sublabel": 'Add and update your coupon codes ',
-    "color": AppColors.transGreen,
-  }
-];

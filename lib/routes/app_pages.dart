@@ -75,15 +75,21 @@ class AppPages {
 
       case AppRoutes.managePromotons:
         return MaterialPageRoute(
-            builder: (_) => const ManagePromotionsView(), settings: settings);
+          builder: (_) => const ManagePromotionsView(),
+          settings: settings,
+        );
 
       case AppRoutes.manageServices:
         return MaterialPageRoute(
-            builder: (_) => const ManageServiceView(), settings: settings);
+          builder: (_) => const ManageServiceView(),
+          settings: settings,
+        );
 
       case AppRoutes.transactions:
         return MaterialPageRoute(
-            builder: (_) => const TransactionView(), settings: settings);
+          builder: (_) => const TransactionView(),
+          settings: settings,
+        );
 
       default:
         return MaterialPageRoute(

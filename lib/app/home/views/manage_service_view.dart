@@ -6,6 +6,6 @@ class ManageServiceView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container();
+    return const Scaffold();
   }
 }
