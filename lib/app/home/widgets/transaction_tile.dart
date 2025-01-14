@@ -32,7 +32,7 @@ class TransactionTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               AppTextSemiBold(
-                  text: 'Pella Sophia |${formatCurrentDate(DateTime.now())}',
+                  text: 'Pella Sophia | ${formatCurrentDate(DateTime.now())}',
                   fontSize: 12),
               AppTextBold(
                 text: 'Succesful',
