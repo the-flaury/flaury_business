@@ -2,8 +2,8 @@ import 'package:flaury_business/app/bookings/views/bookings_view.dart';
 import 'package:flaury_business/app/chat/views/chat_view.dart';
 import 'package:flaury_business/app/dashboard/providers/bottom_nav_state_provider.dart';
 import 'package:flaury_business/app/home/views/home_view.dart';
+import 'package:flaury_business/app/profile/views/proflie_view.dart';
 import 'package:flaury_business/util/app_colors.dart';
-import 'package:flaury_business/util/app_text_style.dart';
 import 'package:flaury_business/util/images_icons_illustration.dart';
 import 'package:flaury_business/util/size_config.dart';
 import 'package:flaury_business/util/svg_assets.dart';
@@ -89,11 +89,10 @@ class DashboardView extends ConsumerWidget {
   }
 }
 
-
-// this determines the pages that are show on the dashboard 
+// this determines the pages that are show on the dashboard
 final List<Widget> _pages = [
   const Homeview(),
   const BookingsView(),
   const ChatView(),
-  Center(child: AppTextBold(text: 'profile', fontSize: 12))
+  const ProfileView()
 ];

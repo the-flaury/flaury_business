@@ -13,6 +13,7 @@ import 'package:flaury_business/app/home/views/manage_service_view.dart';
 import 'package:flaury_business/app/home/views/transaction_view.dart';
 import 'package:flaury_business/app/no_internet/views/no_internet_view.dart';
 import 'package:flaury_business/app/onboarding/views/onboarding_view.dart';
+import 'package:flaury_business/app/profile/views/proflie_view.dart';
 import 'package:flaury_business/app/splash/views/splash_view.dart';
 import 'package:flaury_business/routes/app_routes.dart';
 import 'package:flaury_business/util/app_text_style.dart';
@@ -107,6 +108,12 @@ class AppPages {
       case AppRoutes.chat:
         return MaterialPageRoute(
           builder: (_) => const ChatView(),
+          settings: settings,
+        );
+
+      case AppRoutes.profile:
+        return MaterialPageRoute(
+          builder: (_) => ProfileView(),
           settings: settings,
         );
 

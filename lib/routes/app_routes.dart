@@ -17,4 +17,8 @@ class AppRoutes {
   static const String bookings = '/bookings';
   static const String chatdetails = '/chatdetails';
   static const String chat = '/chatView';
+  static const String faqPage = '/faqpage';
+  static const String changeProfiledetails = '/changeProfiledetails';
+  static const String aboutPageView = '/aboutPageView';
+  static const String profile = '/profile';
 }
