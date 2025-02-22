@@ -88,7 +88,7 @@ class DashboardView extends ConsumerWidget {
 }
 
 final List<Widget> _pages = [
-  Homeview(),
+  const Homeview(),
   Center(child: AppTextBold(text: 'bookings ', fontSize: 12)),
   Center(child: AppTextBold(text: 'chat', fontSize: 12)),
   Center(child: AppTextBold(text: 'profile', fontSize: 12))

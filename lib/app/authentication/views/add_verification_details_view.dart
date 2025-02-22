@@ -39,7 +39,7 @@ class _AddVerificationDetailsViewState
 
           CustomDropDown(
             hint: 'select category',
-            items: AcceptableIdForVerification.map((item) {
+            items: acceptableIdForVerification.map((item) {
               return DropdownMenuItem<String>(
                 value: item,
                 child: Text(item),
@@ -109,7 +109,7 @@ class _AddVerificationDetailsViewState
   }
 }
 
-List<String> AcceptableIdForVerification = [
+List<String> acceptableIdForVerification = [
   'national id',
   'International Passport',
   'Drivers license'
