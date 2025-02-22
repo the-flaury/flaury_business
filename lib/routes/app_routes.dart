@@ -15,4 +15,6 @@ class AppRoutes {
 
   static const String noInternet = '/noInternet';
   static const String bookings = '/bookings';
+  static const String chatdetails = '/chatdetails';
+  static const String chat = '/chatView';
 }

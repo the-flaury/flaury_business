@@ -1,4 +1,5 @@
 import 'package:flaury_business/app/bookings/views/bookings_view.dart';
+import 'package:flaury_business/app/chat/views/chat_view.dart';
 import 'package:flaury_business/app/dashboard/providers/bottom_nav_state_provider.dart';
 import 'package:flaury_business/app/home/views/home_view.dart';
 import 'package:flaury_business/util/app_colors.dart';
@@ -88,9 +89,11 @@ class DashboardView extends ConsumerWidget {
   }
 }
 
+
+// this determines the pages that are show on the dashboard 
 final List<Widget> _pages = [
   const Homeview(),
   const BookingsView(),
-  Center(child: AppTextBold(text: 'chat', fontSize: 12)),
+  const ChatView(),
   Center(child: AppTextBold(text: 'profile', fontSize: 12))
 ];

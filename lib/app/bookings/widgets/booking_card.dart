@@ -129,7 +129,7 @@ class _BookingCardState extends ConsumerState<BookingCard> {
               ],
             )
           ]),
-          widget.isCancelled ? const SizedBox() : const AppSpacing(v: 12),
+          widget.isCancelled ? const AppSpacing(v: 0) : const AppSpacing(v: 12),
 
           widget.isCancelled
               ? const SizedBox()
@@ -161,7 +161,7 @@ class _BookingCardState extends ConsumerState<BookingCard> {
                   ),
                 )
               : widget.isCancelled
-                  ? SizedBox()
+                  ? const SizedBox()
                   :
                   // this is the row of button that showup when
                   Row(

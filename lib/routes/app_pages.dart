@@ -5,6 +5,8 @@ import 'package:flaury_business/app/authentication/views/sign_in._view.dart';
 import 'package:flaury_business/app/authentication/views/sign_up_view.dart';
 import 'package:flaury_business/app/authentication/views/verification_views.dart';
 import 'package:flaury_business/app/bookings/views/bookings_view.dart';
+import 'package:flaury_business/app/chat/views/chat_details_screen.dart';
+import 'package:flaury_business/app/chat/views/chat_view.dart';
 import 'package:flaury_business/app/dashboard/views/dashboard_view.dart';
 import 'package:flaury_business/app/home/views/manage_promotions_view.dart';
 import 'package:flaury_business/app/home/views/manage_service_view.dart';
@@ -95,6 +97,16 @@ class AppPages {
       case AppRoutes.bookings:
         return MaterialPageRoute(
           builder: (_) => const BookingsView(),
+          settings: settings,
+        );
+      case AppRoutes.chatdetails:
+        return MaterialPageRoute(
+          builder: (_) => const ChatDetailsView(),
+          settings: settings,
+        );
+      case AppRoutes.chat:
+        return MaterialPageRoute(
+          builder: (_) => const ChatView(),
           settings: settings,
         );
 
