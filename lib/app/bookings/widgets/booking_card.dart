@@ -15,10 +15,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class BookingCard extends ConsumerStatefulWidget {
   final bool isBookingCompleted;
+  final bool isCancelled;
   final int index;
   const BookingCard({
     required this.index,
     this.isBookingCompleted = false,
+    this.isCancelled = false,
     super.key,
   });
 
@@ -46,18 +48,22 @@ class _BookingCardState extends ConsumerState<BookingCard> {
           Row(
             mainAxisAlignment: widget.isBookingCompleted
                 ? MainAxisAlignment.center
-                : MainAxisAlignment.spaceBetween,
+                : widget.isCancelled
+                    ? MainAxisAlignment
+                        .spaceBetween // Space between when cancelled
+                    : MainAxisAlignment
+                        .spaceBetween, // Space between when pending
             children: [
               AppTextSemiBold(
                 fontSize: 14,
                 text: 'Jan 14, 2024-10:0 AM',
               ),
-              if (!widget.isBookingCompleted)
+              if (!widget.isBookingCompleted && !widget.isCancelled)
                 AppTextSemiBold(
                   fontSize: 14,
                   text: 'Remind me',
                 ),
-              if (!widget.isBookingCompleted)
+              if (!widget.isBookingCompleted && !widget.isCancelled)
                 Transform.scale(
                   scale: 0.7,
                   child: CupertinoSwitch(
@@ -73,7 +79,21 @@ class _BookingCardState extends ConsumerState<BookingCard> {
                               'You have been reminded of your booking ${widget.index}');
                         }
                       }),
-                )
+                ),
+              if (widget.isCancelled)
+                Container(
+                    decoration: BoxDecoration(
+                        color: AppColors.red,
+                        borderRadius: BorderRadius.circular(5)),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.fromDesignWidth(context, 10),
+                      vertical: SizeConfig.fromDesignHeight(context, 10),
+                    ),
+                    child: AppTextSemiBold(
+                      text: "Cancelled",
+                      fontSize: 10,
+                      color: AppColors.white,
+                    ))
             ],
           ),
 
@@ -88,7 +108,7 @@ class _BookingCardState extends ConsumerState<BookingCard> {
                   borderRadius: BorderRadius.all(Radius.circular(5)),
                   image: DecorationImage(
                       image: AssetImage(
-                        img2,
+                        img4,
                       ),
                       fit: BoxFit.cover)),
             ),
@@ -109,9 +129,11 @@ class _BookingCardState extends ConsumerState<BookingCard> {
               ],
             )
           ]),
-          const AppSpacing(v: 12),
+          widget.isCancelled ? const SizedBox() : const AppSpacing(v: 12),
 
-          const Divider(color: AppColors.grey),
+          widget.isCancelled
+              ? const SizedBox()
+              : const Divider(color: AppColors.grey),
           const AppSpacing(v: 10),
 
           widget.isBookingCompleted
@@ -123,7 +145,7 @@ class _BookingCardState extends ConsumerState<BookingCard> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                        border: Border.all(color: AppColors.primary),
+                        border: Border.all(color: AppColors.primary, width: 3),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(20),
                         ),
@@ -138,105 +160,109 @@ class _BookingCardState extends ConsumerState<BookingCard> {
                     ),
                   ),
                 )
-              :
-              // this is the row of button that showup when
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    BookingButton(
-                      isWhiteButton: true,
-                      label: 'Cancel booking',
-                      ontap: () {
-                        showModalBottomSheet(
-                            context: context,
-                            builder: (_) =>
-                                CustomModal(size: 'ultra small', children: [
-                                  const AppSpacing(v: 10),
-                                  const ModalToggle(),
-                                  const AppSpacing(v: 10),
-                                  Center(
-                                      child: AppTextBold(
-                                    fontSize: 20,
-                                    text: 'Cancel Booking',
-                                    color: AppColors.primary,
-                                  )),
-                                  const AppSpacing(v: 39),
-                                  Center(
-                                      child: AppTextBold(
-                                    text:
-                                        'Are you sure you want to cancel your booking?',
-                                    fontSize: 20,
-                                    textAlign: TextAlign.center,
-                                  )),
-                                  const AppSpacing(v: 51),
+              : widget.isCancelled
+                  ? SizedBox()
+                  :
+                  // this is the row of button that showup when
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        BookingButton(
+                          isWhiteButton: true,
+                          label: 'Cancel booking',
+                          ontap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (_) =>
+                                    CustomModal(size: 'ultra small', children: [
+                                      const AppSpacing(v: 10),
+                                      const ModalToggle(),
+                                      const AppSpacing(v: 10),
+                                      Center(
+                                          child: AppTextBold(
+                                        fontSize: 20,
+                                        text: 'Cancel Booking',
+                                        color: AppColors.primary,
+                                      )),
+                                      const AppSpacing(v: 39),
+                                      Center(
+                                          child: AppTextBold(
+                                        text:
+                                            'Are you sure you want to cancel your booking?',
+                                        fontSize: 20,
+                                        textAlign: TextAlign.center,
+                                      )),
+                                      const AppSpacing(v: 51),
 
-                                  // cancel continue booking buttons
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      CancelBooking(
-                                          isCancelButton: true,
-                                          label: 'Cancel',
-                                          ontap: () {
-                                            // cancel booking logic
-                                            showDialog(
-                                                context: context,
-                                                builder: (_) =>
-                                                    CustomAlertDialouge(
-                                                        children: [
-                                                          const SvgAssets(
-                                                            svg: newPasswordPop,
-                                                            height: 115,
-                                                          ),
-                                                          SizedBox(
-                                                            height: SizeConfig
-                                                                .fromDesignHeight(
-                                                                    context,
-                                                                    24),
-                                                          ), //ap
-                                                          Center(
-                                                            child: AppTextBold(
-                                                              text:
-                                                                  'Successful!',
-                                                              fontSize: 18,
-                                                              color: AppColors
-                                                                  .primary,
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: SizeConfig
-                                                                .fromDesignHeight(
-                                                                    context,
-                                                                    18),
-                                                          ), //ap
+                                      // cancel continue booking buttons
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          CancelBooking(
+                                              isCancelButton: true,
+                                              label: 'Cancel',
+                                              ontap: () {
+                                                // cancel booking logic
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (_) =>
+                                                        CustomAlertDialouge(
+                                                            children: [
+                                                              const SvgAssets(
+                                                                svg:
+                                                                    newPasswordPop,
+                                                                height: 115,
+                                                              ),
+                                                              SizedBox(
+                                                                height: SizeConfig
+                                                                    .fromDesignHeight(
+                                                                        context,
+                                                                        24),
+                                                              ), //ap
+                                                              Center(
+                                                                child:
+                                                                    AppTextBold(
+                                                                  text:
+                                                                      'Successful!',
+                                                                  fontSize: 18,
+                                                                  color: AppColors
+                                                                      .primary,
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                height: SizeConfig
+                                                                    .fromDesignHeight(
+                                                                        context,
+                                                                        18),
+                                                              ), //ap
 
-                                                          AppTextRegular(
-                                                              text:
-                                                                  'You have successfully cancelled your order and we’d refund to your wallet soonest.',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              fontSize: 14)
-                                                        ]));
-                                          }),
-                                      CancelBooking(
-                                          label: 'Continue Booking',
-                                          ontap: () {
-                                            Navigator.pop(context);
-                                          })
-                                    ],
-                                  )
-                                ]));
-                      },
+                                                              AppTextRegular(
+                                                                  text:
+                                                                      'You have successfully cancelled your order and we’d refund to your wallet soonest.',
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  fontSize: 14)
+                                                            ]));
+                                              }),
+                                          CancelBooking(
+                                              label: 'Continue Booking',
+                                              ontap: () {
+                                                Navigator.pop(context);
+                                              })
+                                        ],
+                                      )
+                                    ]));
+                          },
+                        ),
+                        BookingButton(
+                            label: 'View receipt',
+                            ontap: () {
+                              debugPrint("view receipt");
+                            }),
+                      ],
                     ),
-                    BookingButton(
-                        label: 'View receipt',
-                        ontap: () {
-                          // logic to view receipt
-                        }),
-                  ],
-                ),
 
           const AppSpacing(v: 10),
         ],

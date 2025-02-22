@@ -22,7 +22,7 @@ class BookingButton extends StatelessWidget {
       onTap: ontap,
       child: Container(
         decoration: BoxDecoration(
-            border: Border.all(color: AppColors.primary),
+            border: Border.all(color: AppColors.primary, width: 2),
             borderRadius: const BorderRadius.all(
               Radius.circular(20),
             ),

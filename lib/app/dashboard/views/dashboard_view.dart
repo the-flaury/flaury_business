@@ -1,3 +1,4 @@
+import 'package:flaury_business/app/bookings/views/bookings_view.dart';
 import 'package:flaury_business/app/dashboard/providers/bottom_nav_state_provider.dart';
 import 'package:flaury_business/app/home/views/home_view.dart';
 import 'package:flaury_business/util/app_colors.dart';
@@ -89,7 +90,7 @@ class DashboardView extends ConsumerWidget {
 
 final List<Widget> _pages = [
   const Homeview(),
-  Center(child: AppTextBold(text: 'bookings ', fontSize: 12)),
+  const BookingsView(),
   Center(child: AppTextBold(text: 'chat', fontSize: 12)),
   Center(child: AppTextBold(text: 'profile', fontSize: 12))
 ];

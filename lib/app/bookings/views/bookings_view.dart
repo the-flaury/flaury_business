@@ -10,16 +10,17 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 List<Widget> tabs = [
   const UpcomingBookings(),
   const CompletedBookings(),
+  const CancelledBookings()
 ];
 
-class BookingsPage extends ConsumerStatefulWidget {
-  const BookingsPage({super.key});
+class BookingsView extends ConsumerStatefulWidget {
+  const BookingsView({super.key});
 
   @override
-  ConsumerState<BookingsPage> createState() => _BookingsPageState();
+  ConsumerState<BookingsView> createState() => _BookingsPageState();
 }
 
-class _BookingsPageState extends ConsumerState<BookingsPage> {
+class _BookingsPageState extends ConsumerState<BookingsView> {
   int selectedIndex = 0;
   void _selectTab(int index) {
     setState(() {
@@ -41,7 +42,7 @@ class _BookingsPageState extends ConsumerState<BookingsPage> {
 
                 // status row
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     //upcoming
                     InkWell(
@@ -66,7 +67,6 @@ class _BookingsPageState extends ConsumerState<BookingsPage> {
                             ),
                           ],
                         )),
-                    const AppSpacing(h: 20),
 
                     // completed
                     InkWell(
@@ -86,6 +86,29 @@ class _BookingsPageState extends ConsumerState<BookingsPage> {
                                   ? SizeConfig.fromDesignWidth(context, 88)
                                   : 0,
                               color: selectedIndex == 1
+                                  ? AppColors.primary
+                                  : Colors.transparent,
+                            ),
+                          ],
+                        )),
+
+                    InkWell(
+                        onTap: () => _selectTab(2),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            selectedIndex == 2
+                                ? AppTextBold(text: status[2], fontSize: 16)
+                                : AppTextRegular(text: status[2], fontSize: 16),
+                            const AppSpacing(v: 8),
+                            AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              height: 3,
+                              width: selectedIndex == 2
+                                  ? SizeConfig.fromDesignWidth(context, 88)
+                                  : 0,
+                              color: selectedIndex == 2
                                   ? AppColors.primary
                                   : Colors.transparent,
                             ),
@@ -160,6 +183,25 @@ class CompletedBookings extends ConsumerWidget {
             child: BookingCard(
               index: index, // Pass the index to each BookingCard
               isBookingCompleted: true,
+            ),
+          );
+        });
+  }
+}
+
+class CancelledBookings extends ConsumerWidget {
+  const CancelledBookings({super.key});
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ListView.builder(
+        itemCount: 5, // Example number of completed bookings
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: EdgeInsets.only(
+                bottom: SizeConfig.fromDesignHeight(context, 10)),
+            child: BookingCard(
+              index: index,
+              isCancelled: true,
             ),
           );
         });

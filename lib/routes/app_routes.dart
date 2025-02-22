@@ -14,4 +14,5 @@ class AppRoutes {
   static const String transactions = '/transactions';
 
   static const String noInternet = '/noInternet';
+  static const String bookings = '/bookings';
 }

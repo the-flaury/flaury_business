@@ -4,6 +4,7 @@ import 'package:flaury_business/app/authentication/views/forgot_password_view.da
 import 'package:flaury_business/app/authentication/views/sign_in._view.dart';
 import 'package:flaury_business/app/authentication/views/sign_up_view.dart';
 import 'package:flaury_business/app/authentication/views/verification_views.dart';
+import 'package:flaury_business/app/bookings/views/bookings_view.dart';
 import 'package:flaury_business/app/dashboard/views/dashboard_view.dart';
 import 'package:flaury_business/app/home/views/manage_promotions_view.dart';
 import 'package:flaury_business/app/home/views/manage_service_view.dart';
@@ -88,6 +89,12 @@ class AppPages {
       case AppRoutes.transactions:
         return MaterialPageRoute(
           builder: (_) => const TransactionView(),
+          settings: settings,
+        );
+
+      case AppRoutes.bookings:
+        return MaterialPageRoute(
+          builder: (_) => const BookingsView(),
           settings: settings,
         );
 
