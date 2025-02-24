@@ -1,30 +1,28 @@
-import 'package:flaury_business/routes/navigator_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final navigationServiceProvider = Provider<NavigationService>((ref) {
-  final helper = ref.watch(navigatorhelperProvider);
-  return NavigationService(helper);
+  return NavigationService();
 });
 
 class NavigationService {
-  final NavigatorHelper helper;
-  NavigationService(this.helper);
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
 
   Future<dynamic> pushTo({
     String? route,
     Widget? page,
     dynamic arguments,
   }) {
-    final context = helper.navigatorKey.currentState;
+    final context = navigatorKey.currentContext;
     if (context == null) {
-      debugPrint('Error: Navigator context is null. Unable to show SnackBar.');
-      throw Exception('there was an error here ');
+      debugPrint('Error: Navigator context is null.');
+      throw Exception('Navigator context is null. Cannot navigate.');
     }
     if (route != null) {
-      return context.pushNamed(route, arguments: arguments);
+      return Navigator.of(context).pushNamed(route, arguments: arguments);
     } else if (page != null) {
-      return context.push(
+      return Navigator.of(context).push(
         MaterialPageRoute(builder: (_) => page),
       );
     } else {
@@ -37,15 +35,16 @@ class NavigationService {
     Widget? page,
     dynamic arguments,
   }) {
-    final context = helper.navigatorKey.currentState;
+    final context = navigatorKey.currentContext;
     if (context == null) {
-      debugPrint('Error: Navigator context is null. Unable to show SnackBar.');
-      throw Exception('there was an error here ');
+      debugPrint('Error: Navigator context is null.');
+      throw Exception('Navigator context is null. Cannot navigate.');
     }
     if (route != null) {
-      return context.pushReplacementNamed(route, arguments: arguments);
+      return Navigator.of(context)
+          .pushReplacementNamed(route, arguments: arguments);
     } else if (page != null) {
-      return context.pushReplacement(
+      return Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => page),
       );
     } else {
@@ -53,12 +52,12 @@ class NavigationService {
     }
   }
 
-  dynamic pop() {
-    final context = helper.navigatorKey.currentState;
+  void pop() {
+    final context = navigatorKey.currentContext;
     if (context == null) {
-      debugPrint('Error: Navigator context is null. Unable to show SnackBar.');
-      throw Exception('there was an error here ');
+      debugPrint('Error: Navigator context is null.');
+      throw Exception('Navigator context is null. Cannot pop.');
     }
-    context.pop();
+    Navigator.of(context).maybePop();
   }
 }

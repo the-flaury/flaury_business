@@ -73,9 +73,7 @@ class SettingsTileV2 extends StatelessWidget {
                 v: 4,
               ),
 
-              AppTextRegular(
-                  text: ' FAQ, Privacy Policy, Terms & Conditions',
-                  fontSize: 10)
+              AppTextRegular(text: label2, fontSize: 10)
             ],
           ),
           trailing: SvgAssets(

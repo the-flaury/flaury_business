@@ -47,6 +47,7 @@ const String userImagePalceholder = '$_baseicons/user_image_placeholder.svg';
 const String notification = '$_baseicons/notification_bell.svg';
 const String arrowDownRed = '$_baseicons/arrow_down_red.svg';
 const String arrowUpGreen = '$_baseicons/arrow_up_green.svg';
+const String blog = '$_baseicons/iconamoon_news-thin.svg';
 
 //illustrations
 const String forgotPassword = '$_baseIll/7070628_3275432 1.svg';
@@ -56,6 +57,7 @@ const String newPasswordPop = '$_baseIll/Group 9015.svg';
 const String img = '$_baseimg/welcome1.jpg';
 const String catimg = '$_baseIll/Rectangle 64makinghair.png';
 const String promotionsILL = '$_baseIll/31745690_7864148 2promo codes.svg';
+const String errorIll = '$_baseIll/Error Illustration.svg';
 
 //images
 

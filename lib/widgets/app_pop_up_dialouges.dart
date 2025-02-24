@@ -28,3 +28,30 @@ class CustomAlertDialouge extends StatelessWidget {
     );
   }
 }
+
+class CustomMediumAlertDialouge extends StatelessWidget {
+  final List<Widget> children;
+  const CustomMediumAlertDialouge({super.key, required this.children});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.fromDesignWidth(context, 14),
+          vertical: SizeConfig.fromDesignHeight(context, 40),
+        ),
+        constraints: BoxConstraints.expand(
+            height: SizeConfig.fromDesignHeight(context, 250),
+            width: SizeConfig.fromDesignWidth(context, double.infinity)),
+        decoration: BoxDecoration(
+            color: AppColors.background,
+            borderRadius: BorderRadius.circular(10)),
+        child: ListView(
+          children: children,
+        ),
+      ),
+    );
+  }
+}

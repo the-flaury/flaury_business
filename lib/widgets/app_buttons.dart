@@ -4,9 +4,16 @@ import 'package:flaury_business/util/size_config.dart';
 import 'package:flutter/material.dart';
 
 class ButtonCustom extends StatelessWidget {
-  const ButtonCustom({super.key, required this.label, required this.ontap});
+  const ButtonCustom(
+      {super.key,
+      required this.label,
+      required this.ontap,
+      this.isgrey = false,
+      this.buttoncolor = AppColors.primary});
   final String label;
   final Function()? ontap;
+  final Color buttoncolor;
+  final bool isgrey;
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +22,14 @@ class ButtonCustom extends StatelessWidget {
       child: Container(
         height: SizeConfig.fromDesignHeight(context, 52),
         width: SizeConfig.fromDesignWidth(context, 315),
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-            color: AppColors.primary),
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
+            color: buttoncolor),
         child: Center(
             child: AppTextBold(
           text: label,
           fontSize: 16,
-          color: AppColors.white,
+          color: isgrey ? AppColors.black : AppColors.white,
         )),
       ),
     );

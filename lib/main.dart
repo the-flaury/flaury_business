@@ -1,7 +1,6 @@
 import 'package:flaury_business/app/no_internet/notifiers/internet_connectivity_notifier.dart';
 import 'package:flaury_business/routes/app_pages.dart';
 import 'package:flaury_business/routes/app_routes.dart';
-import 'package:flaury_business/routes/navigator_helper.dart';
 import 'package:flaury_business/services/connectivity_check_service.dart';
 import 'package:flaury_business/services/navigation_service.dart';
 import 'package:flaury_business/util/app_colors.dart';
@@ -18,7 +17,6 @@ class MainApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final navigatorhelper = ref.watch(navigatorhelperProvider);
     final navigation = ref.watch(navigationServiceProvider);
 
     //initalize the internet connectivity service checker here on the start of of application
@@ -40,7 +38,7 @@ class MainApp extends ConsumerWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: AppPages.inital,
         onGenerateRoute: AppPages.onGenerateRoutes,
-        navigatorKey: navigatorhelper.navigatorKey,
+        navigatorKey: NavigationService.navigatorKey,
         theme: ThemeData(
           scaffoldBackgroundColor: AppColors.background,
         ));
