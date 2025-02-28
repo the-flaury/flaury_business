@@ -14,9 +14,9 @@ class AboutPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-          child: SymmetricPadding(
+    return SafeArea(
+      child: Scaffold(
+          body: SymmetricPadding(
         h: 20,
         v: 0,
         child: Column(

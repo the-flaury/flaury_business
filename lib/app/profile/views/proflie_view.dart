@@ -20,10 +20,10 @@ class ProfileView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final alert = ref.watch(dialogServiceProvider);
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: SingleChildScrollView(
-        child: SafeArea(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColors.background,
+        body: SingleChildScrollView(
           child: Column(
             children: [
               //place holder image is hardcoded for now

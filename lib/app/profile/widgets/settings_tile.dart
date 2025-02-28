@@ -73,7 +73,11 @@ class SettingsTileV2 extends StatelessWidget {
                 v: 4,
               ),
 
-              AppTextRegular(text: label2, fontSize: 10)
+              AppTextRegular(
+                text: label2,
+                fontSize: 10,
+                overflow: TextOverflow.visible,
+              )
             ],
           ),
           trailing: SvgAssets(

@@ -13,6 +13,9 @@ import 'package:flaury_business/app/home/views/manage_service_view.dart';
 import 'package:flaury_business/app/home/views/transaction_view.dart';
 import 'package:flaury_business/app/no_internet/views/no_internet_view.dart';
 import 'package:flaury_business/app/onboarding/views/onboarding_view.dart';
+import 'package:flaury_business/app/profile/views/business_details_view.dart';
+import 'package:flaury_business/app/profile/views/change_profile_details_page.dart';
+import 'package:flaury_business/app/profile/views/edit_profile_view.dart';
 import 'package:flaury_business/app/profile/views/proflie_view.dart';
 import 'package:flaury_business/app/splash/views/splash_view.dart';
 import 'package:flaury_business/routes/app_routes.dart';
@@ -113,7 +116,25 @@ class AppPages {
 
       case AppRoutes.profile:
         return MaterialPageRoute(
-          builder: (_) => ProfileView(),
+          builder: (_) => const ProfileView(),
+          settings: settings,
+        );
+
+      case AppRoutes.changeProfiledetails:
+        return MaterialPageRoute(
+          builder: (_) => const ChangeProfileDetailsView(),
+          settings: settings,
+        );
+
+      case AppRoutes.editprofile:
+        return MaterialPageRoute(
+          builder: (_) => const EditProfileView(),
+          settings: settings,
+        );
+
+      case AppRoutes.businessDetails:
+        return MaterialPageRoute(
+          builder: (_) => const BusinessDetailsView(),
           settings: settings,
         );
 

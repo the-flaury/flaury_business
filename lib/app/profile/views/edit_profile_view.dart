@@ -10,12 +10,13 @@ import 'package:flaury_business/util/svg_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ChangeProfileDetailsView extends ConsumerWidget {
-  const ChangeProfileDetailsView({super.key});
+class EditProfileView extends ConsumerWidget {
+  const EditProfileView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final navigation = ref.watch(navigationServiceProvider);
+
     return SafeArea(
       child: Scaffold(
           body: SymmetricPadding(
@@ -33,23 +34,27 @@ class ChangeProfileDetailsView extends ConsumerWidget {
                   ontap: () => Navigator.pop(context),
                 ),
                 const AppSpacing(h: 6),
-                AppTextBold(text: 'Profile', fontSize: 18),
+                AppTextBold(text: ' Edit profile', fontSize: 18),
                 const AppSpacing(v: 20),
               ],
             ),
+            const AppSpacing(v: 20),
+
             //edit profile
-            ChangeProfileSettingTile(
-              label: 'Edit Profile',
-              ontap: () {
-                navigation.pushTo(route: AppRoutes.editprofile);
-              },
-            ),
+            SettingsTileV2(
+                label: 'Business Details',
+                svgAssets: businessDetails,
+                ontap: () {
+                  navigation.pushTo(route: AppRoutes.businessDetails);
+                },
+                label2:
+                    "Manage your business settings such as business name & location"),
 
             //change password
-            ChangeProfileSettingTile(
-              label: 'Change password',
-              ontap: () {},
-            ),
+            const SettingsTileV2(
+                label: 'Team',
+                svgAssets: people,
+                label2: "Manage your team members")
           ],
         ),
       )),
