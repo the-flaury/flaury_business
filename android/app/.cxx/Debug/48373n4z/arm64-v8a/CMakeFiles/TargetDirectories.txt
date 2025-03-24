@@ -1,0 +1,2 @@
+/home/boluwatife/code/flaury_business/android/app/.cxx/Debug/48373n4z/arm64-v8a/CMakeFiles/edit_cache.dir
+/home/boluwatife/code/flaury_business/android/app/.cxx/Debug/48373n4z/arm64-v8a/CMakeFiles/rebuild_cache.dir

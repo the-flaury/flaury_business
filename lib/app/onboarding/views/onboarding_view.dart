@@ -29,13 +29,13 @@ class OnboardingView extends ConsumerWidget {
               ),
               OnboardingPage(
                 image: onboard2,
-                title: 'Grow your business with Flaury',
+                title: 'Easy way to collect payments',
                 subtitle:
                     'Enjoy instant payouts to your account and track your income all in one place.',
               ),
               OnboardingPage(
                 image: onboard3,
-                title: 'Grow your business with Flaury',
+                title: 'Expand your reach with Flaury',
                 subtitle:
                     'Showcase your skills and services to thousands of customers.',
                 islastImage: true,
