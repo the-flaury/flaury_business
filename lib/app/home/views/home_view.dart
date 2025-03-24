@@ -24,7 +24,7 @@ class _HomeviewState extends ConsumerState<Homeview> {
   List<Map<String, dynamic>> actonButtons = [
     {
       "icon": transactions,
-      "label": "transactions",
+      "label": "Transactions",
       "sublabel": 'Check your transaction ',
       "color": AppColors.transGreen,
       "pageroute": AppRoutes.transactions

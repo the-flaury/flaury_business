@@ -38,14 +38,15 @@ class HompageActionButton extends ConsumerWidget {
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: color)),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               padding: EdgeInsets.all(SizeConfig.fromDesignHeight(context, 10)),
               decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               child: SvgAssets(
                 svg: icon,
-                height: SizeConfig.fromDesignHeight(context, 20),
+                height: SizeConfig.fromDesignHeight(context, 15),
                 colorFilter:
                     const ColorFilter.mode(AppColors.white, BlendMode.srcIn),
               ),
