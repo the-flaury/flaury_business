@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flaury_business/util/api_routes.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final dioServiceProvider = Provider<DioService>(
@@ -10,118 +11,163 @@ class DioService {
 
   static final instance = DioService._();
 
+  
+
   final Dio _dio = Dio(BaseOptions(
+    baseUrl: ApiRoutes.baseUrl,
     connectTimeout: const Duration(seconds: 90),
     receiveTimeout: const Duration(seconds: 90),
     sendTimeout: const Duration(seconds: 90),
     responseType: ResponseType.json,
+    headers: {"Content-Type": "application/json; charset=UTF-8"},
   ));
 
-  //this is created in the case where we need to access the token stored in local storage to attempt to validate user entry into the application
-  Options headers(String? sessionToken) =>
+  static Options headers(String? sessionToken) =>
       Options(headers: {"Authorization": '$sessionToken'});
 
-  //get operations
-  Future<Map<String, dynamic>> get(
-    String path, {
-    Map<String, dynamic>? queryParameters,
-    Object? data,
-    Map<String, dynamic>? payload,
-    CancelToken? cancelToken,
-    ProgressCallback? onReceiveProgress,
-  }) async {
-    try {
-      final Response response = await _dio.get(
-        path,
-        queryParameters: queryParameters,
-        data: payload ?? data,
-        cancelToken: cancelToken,
-        onReceiveProgress: onReceiveProgress,
-      );
+  Future<Map<String, dynamic>> _handleResponse(Response response) async {
+    final statusCode = response.statusCode;
+    final data = response.data;
 
-      if (response.statusCode == 200 || response.data['success']) {
-        return response.data;
-      }
+    if (statusCode == null) {
+      throw CustomException('No status code in response');
+    }
 
-      throw Exception("Something went wrong: ${response.data.toString()}");
-    } catch (error) {
-      throw Exception("Failed to fetch data: ${error.toString()}");
+    if (statusCode >= 200 && statusCode < 300) {
+   if (data is Map<String, dynamic> || data is List<dynamic>) {
+      return data;
+    }
+    throw CustomException('Invalid response format');
+    }
+
+    // Handle specific error cases
+    switch (statusCode) {
+      case 400:
+        throw CustomException('Bad Request');
+      case 401:
+        throw CustomException('Invalid or expired token');
+      case 403:
+        throw CustomException('Forbidden');
+      case 404:
+        throw CustomException('Resource not found');
+      case 429:
+        throw CustomException('Too many requests. Please try again later.');
+      case 500:
+        throw CustomException('Internal Server Error');
+      default:
+        final errorMessage = data is Map<String, dynamic> 
+            ? data['message']?.toString() 
+            : 'Request failed with status $statusCode';
+        throw CustomException(errorMessage ?? 'Unknown error occurred');
     }
   }
 
-//post operations
-  Future<Map<String, dynamic>> post(
+  //get operations
+ Future<Map<String, dynamic>> get(
     String path, {
     Map<String, dynamic>? queryParameters,
     Object? data,
-    Map<String, dynamic>? payload,
     CancelToken? cancelToken,
     ProgressCallback? onReceiveProgress,
+    Options? options,
   }) async {
     try {
-      final Response response = await _dio.post(
+      final response = await _dio.get(
         path,
-        data: payload ?? data,
+        queryParameters: queryParameters,
+        data: data,
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
+        options: options,
       );
-      if (response.statusCode == 200 || response.data['success']) {
-        return response.data;
-      }
+      return await _handleResponse(response);
+    } on DioException catch (e) {
+      throw CustomException(e.message ?? 'Network error occurred');
+    } catch (e) {
+      throw CustomException('An unexpected error occurred');
+    }
+  }
 
-      throw Exception("Failed to fetch data: ${response.data.toString()}");
-    } catch (error) {
-      throw Exception("Failed to fetch data: ${error.toString()}");
+  Future<Map<String, dynamic>> post(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    CancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+    Options? options,
+  }) async {
+    try {
+      final response = await _dio.post(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        cancelToken: cancelToken,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
+        options: options,
+      );
+      return await _handleResponse(response);
+    } on DioException catch (e) {
+      throw CustomException(e.message ?? 'Network error occurred');
+    } catch (e) {
+      throw CustomException('An unexpected error occurred');
     }
   }
 
   //put operations
-  Future<Map<String, dynamic>> put(
-    String path, {
-    Map<String, dynamic>? queryParameters,
-    Object? data,
-    Map<String, dynamic>? payload,
-    CancelToken? cancelToken,
-    ProgressCallback? onReceiveProgress,
-  }) async {
+  Future<Map<String, dynamic>> put(String path,
+      {Map<String, dynamic>? queryParameters,
+      Object? data,
+      Map<String, dynamic>? payload,
+      CancelToken? cancelToken,
+      ProgressCallback? onReceiveProgress,
+      Options? option}) async {
     try {
       final Response response = await _dio.put(
         path,
         data: payload ?? data,
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
+        options: option,
       );
-      if (response.statusCode == 200 || response.data['success']) {
-        return response.data;
-      }
-
-      throw Exception("Failed to fetch data: ${response.data.toString()}");
-    } catch (error) {
-      throw Exception("Failed to fetch data: ${error.toString()}");
+      return await _handleResponse(response);
+     } on DioException catch (e) {
+      throw CustomException(e.message ?? 'Network error occurred');
+    } catch (e) {
+      throw CustomException('An unexpected error occurred');
     }
   }
 
   //delete operations
-  Future<Map<String, dynamic>> delete(
-    String path, {
-    Map<String, dynamic>? queryParameters,
-    Object? data,
-    Map<String, dynamic>? payload,
-    CancelToken? cancelToken,
-  }) async {
+  Future<Map<String, dynamic>> delete(String path,
+      {Map<String, dynamic>? queryParameters,
+      Object? data,
+      Map<String, dynamic>? payload,
+      CancelToken? cancelToken,
+      Options? option}) async {
     try {
-      final Response response = await _dio.delete(
-        path,
-        data: payload ?? data,
-        cancelToken: cancelToken,
-      );
-      if (response.statusCode == 200 || response.data['success']) {
-        return response.data;
-      }
-
-      throw Exception("Failed to fetch data: ${response.data.toString()}");
-    } catch (error) {
-      throw Exception("Failed to fetch data: ${error.toString()}");
+      final Response response = await _dio.delete(path,
+          data: payload ?? data, cancelToken: cancelToken, options: option);
+       return await _handleResponse(response);
+     } on DioException catch (e) {
+      throw CustomException(e.message ?? 'Network error occurred');
+    } catch (e) {
+      throw CustomException('An unexpected error occurred');
     }
   }
+
+  
+}
+
+
+
+
+class CustomException implements Exception {
+  final String message;
+
+  CustomException(this.message);
+
+  @override
+  String toString() => "CustomException: $message";
 }
