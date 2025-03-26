@@ -11,8 +11,6 @@ class DioService {
 
   static final instance = DioService._();
 
-  
-
   final Dio _dio = Dio(BaseOptions(
     baseUrl: ApiRoutes.baseUrl,
     connectTimeout: const Duration(seconds: 90),
@@ -34,10 +32,10 @@ class DioService {
     }
 
     if (statusCode >= 200 && statusCode < 300) {
-   if (data is Map<String, dynamic> || data is List<dynamic>) {
-      return data;
-    }
-    throw CustomException('Invalid response format');
+      if (data is Map<String, dynamic> || data is List<dynamic>) {
+        return data;
+      }
+      throw CustomException('Invalid response format');
     }
 
     // Handle specific error cases
@@ -55,31 +53,28 @@ class DioService {
       case 500:
         throw CustomException('Internal Server Error');
       default:
-        final errorMessage = data is Map<String, dynamic> 
-            ? data['message']?.toString() 
+        final errorMessage = data is Map<String, dynamic>
+            ? data['message']?.toString()
             : 'Request failed with status $statusCode';
         throw CustomException(errorMessage ?? 'Unknown error occurred');
     }
   }
 
   //get operations
- Future<Map<String, dynamic>> get(
-    String path, {
-    Map<String, dynamic>? queryParameters,
-    Object? data,
-    CancelToken? cancelToken,
-    ProgressCallback? onReceiveProgress,
-    Options? options,
-  }) async {
+  Future<Map<String, dynamic>> get(String path,
+      {Map<String, dynamic>? queryParameters,
+      Object? data,
+      CancelToken? cancelToken,
+      ProgressCallback? onReceiveProgress,
+      Options? options,
+      String? sessionToken}) async {
     try {
-      final response = await _dio.get(
-        path,
-        queryParameters: queryParameters,
-        data: data,
-        cancelToken: cancelToken,
-        onReceiveProgress: onReceiveProgress,
-        options: options,
-      );
+      final response = await _dio.get(path,
+          queryParameters: queryParameters,
+          data: data,
+          cancelToken: cancelToken,
+          onReceiveProgress: onReceiveProgress,
+          options: options ?? headers(sessionToken));
       return await _handleResponse(response);
     } on DioException catch (e) {
       throw CustomException(e.message ?? 'Network error occurred');
@@ -88,15 +83,14 @@ class DioService {
     }
   }
 
-  Future<Map<String, dynamic>> post(
-    String path, {
-    Object? data,
-    Map<String, dynamic>? queryParameters,
-    CancelToken? cancelToken,
-    ProgressCallback? onSendProgress,
-    ProgressCallback? onReceiveProgress,
-    Options? options,
-  }) async {
+  Future<Map<String, dynamic>> post(String path,
+      {Object? data,
+      Map<String, dynamic>? queryParameters,
+      CancelToken? cancelToken,
+      ProgressCallback? onSendProgress,
+      ProgressCallback? onReceiveProgress,
+      Options? options,
+      String? sessionToken}) async {
     try {
       final response = await _dio.post(
         path,
@@ -105,7 +99,7 @@ class DioService {
         cancelToken: cancelToken,
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
-        options: options,
+        options: options ?? headers(sessionToken),
       );
       return await _handleResponse(response);
     } on DioException catch (e) {
@@ -122,6 +116,7 @@ class DioService {
       Map<String, dynamic>? payload,
       CancelToken? cancelToken,
       ProgressCallback? onReceiveProgress,
+      String? sessionToken,
       Options? option}) async {
     try {
       final Response response = await _dio.put(
@@ -129,10 +124,10 @@ class DioService {
         data: payload ?? data,
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
-        options: option,
+        options: option ?? headers(sessionToken),
       );
       return await _handleResponse(response);
-     } on DioException catch (e) {
+    } on DioException catch (e) {
       throw CustomException(e.message ?? 'Network error occurred');
     } catch (e) {
       throw CustomException('An unexpected error occurred');
@@ -145,23 +140,23 @@ class DioService {
       Object? data,
       Map<String, dynamic>? payload,
       CancelToken? cancelToken,
+      String? sessionToken,
       Options? option}) async {
     try {
-      final Response response = await _dio.delete(path,
-          data: payload ?? data, cancelToken: cancelToken, options: option);
-       return await _handleResponse(response);
-     } on DioException catch (e) {
+      final Response response = await _dio.delete(
+        path,
+        data: payload ?? data,
+        cancelToken: cancelToken,
+        options: option ?? headers(sessionToken),
+      );
+      return await _handleResponse(response);
+    } on DioException catch (e) {
       throw CustomException(e.message ?? 'Network error occurred');
     } catch (e) {
       throw CustomException('An unexpected error occurred');
     }
   }
-
-  
 }
-
-
-
 
 class CustomException implements Exception {
   final String message;
