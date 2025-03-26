@@ -22,6 +22,11 @@ class AuthRepository {
 
       final response = await _dioService.post(ApiRoutes.signIn, data: data);
 
+      if (response["response status"] != "success") {
+        throw CustomException(
+            response["response description"] ?? "Signup failed");
+      }
+
       return RegisterUserModel.fromJson(response);
     } catch (e, s) {
       debugPrint("Unexpected error: $e");
