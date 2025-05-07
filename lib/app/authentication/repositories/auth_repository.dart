@@ -4,6 +4,10 @@ import 'package:flaury_business/app/authentication/models/user_model.dart';
 import 'package:flaury_business/services/dio_service.dart';
 import 'package:flaury_business/util/api_routes.dart';
 import 'package:flutter/foundation.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+final authrepositoryProvider = Provider<AuthRepository>(
+    (ref) => AuthRepositoryImpl(ref.read(dioServiceProvider)));
 
 class AuthRepositoryImpl implements AuthRepository {
   final DioService _dioService;

@@ -61,3 +61,36 @@ class SharedPreferenceHelper {
     return prefs.getBool(key);
   }
 }
+
+final authTokenManagerProvider = Provider<AuthTokenManager>(
+    (ref) => AuthTokenManager(secureStorage: ref.read(secureStorageProvider)));
+
+class AuthTokenManager {
+  final SecureStorage secureStorage;
+
+  AuthTokenManager({required this.secureStorage});
+
+  Future<void> saveAuthToken(String token) async {
+    await secureStorage.write('auth_token', token);
+  }
+
+  Future<String?> getAuthToken() async {
+    return await secureStorage.read('auth_token');
+  }
+
+  Future<void> deleteAuthToken() async {
+    await secureStorage.delete('Refresh_token');
+  }
+
+  Future<void> saveRefreshAuthToken(String token) async {
+    await secureStorage.write('Refresh_token', token);
+  }
+
+  Future<String?> getRefreshAuthToken() async {
+    return await secureStorage.read('Refresh_token');
+  }
+
+  Future<void> deleteRefreshAuthToken() async {
+    await secureStorage.delete('Refresh_token');
+  }
+}
