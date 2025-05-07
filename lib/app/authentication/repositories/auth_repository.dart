@@ -23,7 +23,7 @@ class AuthRepositoryImpl implements AuthRepository {
         "username": userName,
       };
 
-      final response = await _dioService.post(ApiRoutes.signIn, data: data);
+      final response = await _dioService.post(ApiRoutes.signUp, data: data);
 
       if (response["response status"] != "success") {
         throw CustomException(
