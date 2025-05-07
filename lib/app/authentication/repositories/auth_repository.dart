@@ -39,64 +39,200 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<ApiResponseModel> forgotPassword(String email) {
-    // TODO: implement forgotPassword
-    throw UnimplementedError();
+  Future<ApiResponseModel> forgotPassword(String email) async {
+    try {
+      Map<String, dynamic> data = {
+        "email": email,
+      };
+
+      final response =
+          await _dioService.post(ApiRoutes.forgotPassword, data: data);
+
+      if (response["response status"] != "success") {
+        throw CustomException(
+            response["response description"] ?? "Forgot password failed");
+      }
+
+      return ApiResponseModel.fromJson(response);
+    } catch (e, s) {
+      debugPrint("Unexpected error: $e");
+      debugPrint(s.toString());
+      throw CustomException("An unexpected error occurred");
+    }
   }
 
   @override
-  Future<LoginResponse> login(String email, String password) {
-    // TODO: implement login
-    throw UnimplementedError();
+  Future<LoginResponse> login(String email, String password) async {
+    try {
+      Map<String, dynamic> data = {
+        "email": email,
+        "password": password,
+      };
+
+      final response = await _dioService.post(ApiRoutes.login, data: data);
+
+      if (response["response status"] != "success") {
+        throw CustomException(
+            response["response description"] ?? "Forgot password failed");
+      }
+
+      return LoginResponse.fromJson(response);
+    } catch (e, s) {
+      debugPrint("Unexpected error: $e");
+      debugPrint(s.toString());
+      throw CustomException("An unexpected error occurred");
+    }
   }
 
   @override
-  Future<void> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<ApiResponseModel> logout() async {
+    try {
+      final response = await _dioService.post(
+        ApiRoutes.logout,
+      );
+
+      if (response["response status"] != "success") {
+        throw CustomException(
+            response["response description"] ?? "logout failed");
+      }
+
+      return ApiResponseModel.fromJson(response);
+    } catch (e, s) {
+      debugPrint("Unexpected error: $e");
+      debugPrint(s.toString());
+      throw CustomException("An unexpected error occurred");
+    }
   }
 
   @override
-  Future<ApiResponseModel> refreshAccessToken() {
-    // TODO: implement refreshAccessToken
-    throw UnimplementedError();
+  Future<ApiResponseModel> refreshAccessToken() async {
+    // you have to pass the refresh token in the header
+    // and the refresh token is stored in the local storage
+    try {
+      final response = await _dioService.post(
+        ApiRoutes.refreshAccessToken,
+      );
+
+      if (response["response status"] != "success") {
+        throw CustomException(
+            response["response description"] ?? "refresh token failed");
+      }
+
+      return ApiResponseModel.fromJson(response);
+    } catch (e, s) {
+      debugPrint("Unexpected error: $e");
+      debugPrint(s.toString());
+      throw CustomException("An unexpected error occurred");
+    }
   }
 
   @override
-  Future<ApiResponseModel> resendVerifcationCode() {
-    // TODO: implement resendVerifcationCode
-    throw UnimplementedError();
+  Future<ApiResponseModel> resendVerifcationCode(String email) async {
+    try {
+      Map<String, dynamic> data = {
+        "email": email,
+      };
+      final response = await _dioService.post(
+        ApiRoutes.resendVerifcationCode,
+        data: data,
+      );
+
+      if (response["response status"] != "success") {
+        throw CustomException(
+            response["response description"] ?? "refresh token failed");
+      }
+
+      return ApiResponseModel.fromJson(response);
+    } catch (e, s) {
+      debugPrint("Unexpected error: $e");
+      debugPrint(s.toString());
+      throw CustomException("An unexpected error occurred");
+    }
   }
 
   @override
   Future<ApiResponseModel> resetPassword(
-      String email, String newPassword, String verificationCode) {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
+      String email, String newPassword, String verificationCode) async {
+    try {
+      Map<String, dynamic> data = {
+        "email": email,
+        "new_password": newPassword,
+        "verification_code": verificationCode,
+      };
+      final response = await _dioService.post(
+        ApiRoutes.resetPassword,
+        data: data,
+      );
+
+      if (response["response status"] != "success") {
+        throw CustomException(
+            response["response description"] ?? "reset password  failed");
+      }
+
+      return ApiResponseModel.fromJson(response);
+    } catch (e, s) {
+      debugPrint("Unexpected error: $e");
+      debugPrint(s.toString());
+      throw CustomException("An unexpected error occurred");
+    }
   }
 
   @override
-  Future<ApiResponseModel> verifyEmail(String email, String code) {
+  Future<ApiResponseModel> verifyEmail(String email, String code) async {
     // TODO: implement verifyEmail
-    throw UnimplementedError();
+    try {
+      Map<String, dynamic> data = {
+        "email": email,
+        "code": code,
+      };
+      final response = await _dioService.post(
+        ApiRoutes.verifyEmail,
+        data: data,
+      );
+
+      if (response["response status"] != "success") {
+        throw CustomException(
+            response["response description"] ?? "verify email failed");
+      }
+
+      return ApiResponseModel.fromJson(response);
+    } catch (e, s) {
+      debugPrint("Unexpected error: $e");
+      debugPrint(s.toString());
+      throw CustomException("An unexpected error occurred");
+    }
   }
 
   @override
-  Future<UserModel> verifyUserIsAuthenticated() {
-    // TODO: implement verifyUserIsAuthenticated
-    throw UnimplementedError();
+  Future<UserModel> verifyUserIsAuthenticated() async {
+    try {
+      final response = await _dioService.post(
+        ApiRoutes.verifyUserAuth,
+      );
+
+      if (response["response status"] != "success") {
+        throw CustomException(
+            response["response description"] ?? "verify user auth failed");
+      }
+
+      return UserModel.fromJson(response);
+    } catch (e, s) {
+      debugPrint("Unexpected error: $e");
+      debugPrint(s.toString());
+      throw CustomException("An unexpected error occurred");
+    }
   }
 }
 
 abstract class AuthRepository {
   Future<RegisterResponse> signUp(String email, String password,
       String firstName, String lastName, String userName);
-  Future<void> logout();
+  Future<ApiResponseModel> logout();
   Future<LoginResponse> login(String email, String password);
 
   Future<ApiResponseModel> refreshAccessToken();
   Future<ApiResponseModel> forgotPassword(String email);
-  Future<ApiResponseModel> resendVerifcationCode();
+  Future<ApiResponseModel> resendVerifcationCode(String email);
   Future<ApiResponseModel> resetPassword(
       String email, String newPassword, String verificationCode);
   Future<ApiResponseModel> verifyEmail(String email, String code);
