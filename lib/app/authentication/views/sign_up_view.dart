@@ -3,6 +3,7 @@ import 'package:flaury_business/app/authentication/providers/password_visibility
 import 'package:flaury_business/routes/app_routes.dart';
 import 'package:flaury_business/services/navigation_service.dart';
 import 'package:flaury_business/util/app_colors.dart';
+import 'package:flaury_business/util/app_spacing.dart';
 import 'package:flaury_business/util/app_text_style.dart';
 import 'package:flaury_business/util/custom_padding.dart';
 import 'package:flaury_business/util/size_config.dart';
@@ -22,19 +23,19 @@ class SignUpView extends ConsumerStatefulWidget {
 
 class _SignUpViewState extends ConsumerState<SignUpView> {
   final GlobalKey _formkey = GlobalKey<FormState>();
-  final TextEditingController _namecontroller = TextEditingController();
+  final TextEditingController _lastnamecontroller = TextEditingController();
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
-  final TextEditingController _phonecontroller = TextEditingController();
+  final TextEditingController _firstnamecontroller = TextEditingController();
   final TextEditingController _usernamecontroller = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
     _emailcontroller.dispose();
-    _namecontroller.dispose();
+    _lastnamecontroller.dispose();
     _passwordcontroller.dispose();
-    _phonecontroller.dispose();
+    _firstnamecontroller.dispose();
     _usernamecontroller.dispose();
   }
 
@@ -81,18 +82,27 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                       controller: _usernamecontroller,
                       label: 'Username',
                     ),
+                    const AppSpacing(v: 20),
                     //name textfield
                     AuthTextfield(
                       hintext: 'Becca Braunch',
                       obscureText: false,
                       validator: Validator.nameValidator,
-                      controller: _namecontroller,
-                      label: 'Name',
+                      controller: _firstnamecontroller,
+                      label: 'First Name',
                     ),
 
-                    SizedBox(
-                      height: SizeConfig.fromDesignHeight(context, 20),
+                    const AppSpacing(v: 20),
+                    //name textfield
+                    AuthTextfield(
+                      hintext: 'Becca Braunch',
+                      obscureText: false,
+                      validator: Validator.nameValidator,
+                      controller: _lastnamecontroller,
+                      label: 'Last Name',
                     ),
+
+                    SizedBox(height: SizeConfig.fromDesignHeight(context, 20)),
 
                     //email textfield
                     AuthTextfield(
@@ -103,20 +113,6 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                       label: 'Email Address',
                       keyboardType: TextInputType.emailAddress,
                     ),
-                    SizedBox(
-                      height: SizeConfig.fromDesignHeight(context, 20),
-                    ),
-
-                    //phone number textfield
-                    AuthTextfield(
-                      hintext: '08012345678',
-                      obscureText: false,
-                      validator: Validator.validatePhoneNumber,
-                      controller: _phonecontroller,
-                      label: 'Phone Number',
-                      keyboardType: TextInputType.number,
-                    ),
-
                     SizedBox(
                       height: SizeConfig.fromDesignHeight(context, 20),
                     ),
@@ -171,16 +167,16 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                     ListenableBuilder(
                         listenable: Listenable.merge([
                           _emailcontroller,
-                          _namecontroller,
-                          _phonecontroller,
+                          _lastnamecontroller,
+                          _firstnamecontroller,
                           _passwordcontroller,
                           _usernamecontroller,
                         ]),
                         builder: (context, child) {
                           final enable = _emailcontroller.text.isNotEmpty &&
-                              _namecontroller.text.isNotEmpty &&
+                              _lastnamecontroller.text.isNotEmpty &&
                               _passwordcontroller.text.isNotEmpty &&
-                              _phonecontroller.text.isNotEmpty &&
+                              _firstnamecontroller.text.isNotEmpty &&
                               _usernamecontroller.text.isNotEmpty;
 
                           return enable
@@ -194,10 +190,10 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                                     ref
                                         .read(authControllerProvider.notifier)
                                         .signUp(
-                                          _namecontroller.text,
                                           _emailcontroller.text,
-                                          _phonecontroller.text,
                                           _passwordcontroller.text,
+                                          _firstnamecontroller.text,
+                                          _lastnamecontroller.text,
                                           _usernamecontroller.text,
                                         )
                                         .then((value) {
