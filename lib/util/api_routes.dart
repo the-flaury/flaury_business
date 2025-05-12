@@ -1,6 +1,6 @@
 class ApiRoutes {
   static const String baseUrl =
-      "https://flaury-backend-dev-server.onrender.com";
+      "https://flaury.onrender.com";
 
   // AUTH ENDPOINTS
   static const String forgotPassword = "/api/users/forgot-password";

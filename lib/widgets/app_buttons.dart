@@ -41,8 +41,10 @@ class LargeButon extends StatelessWidget {
       {super.key,
       required this.label,
       required this.ontap,
-      this.isWhitebutton = false});
+      this.isWhitebutton = false,
+      this.isloading = false});
   final String label;
+  final bool isloading;
   final Function()? ontap;
   final bool isWhitebutton;
 
@@ -57,12 +59,21 @@ class LargeButon extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(5)),
             border: Border.all(color: AppColors.primary),
             color: isWhitebutton ? AppColors.background : AppColors.primary),
-        child: Center(
-            child: AppTextBold(
-          text: label,
-          fontSize: 16,
-          color: isWhitebutton ? AppColors.primary : AppColors.white,
-        )),
+        child: isloading
+            ? Center(
+                child: SizedBox(
+                height: SizeConfig.fromDesignHeight(context, 20),
+                width: SizeConfig.fromDesignWidth(context, 20),
+                child: const CircularProgressIndicator(
+                  color: AppColors.white,
+                ),
+              ))
+            : Center(
+                child: AppTextBold(
+                text: label,
+                fontSize: 16,
+                color: isWhitebutton ? AppColors.primary : AppColors.white,
+              )),
       ),
     );
   }

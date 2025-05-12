@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flaury_business/util/api_routes.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:logger/web.dart';
 
 final dioServiceProvider = Provider<DioService>(
   (ref) => DioService.instance,
@@ -10,6 +11,7 @@ class DioService {
   DioService._();
 
   static final instance = DioService._();
+  final logger = Logger();
 
   final Dio _dio = Dio(BaseOptions(
     baseUrl: ApiRoutes.baseUrl,
@@ -22,6 +24,21 @@ class DioService {
 
   static Options headers(String? sessionToken) =>
       Options(headers: {"Authorization": '$sessionToken'});
+
+  void _logRequest(String method, String path,
+      {Object? data,
+      Map<String, dynamic>? query,
+      Options? options}) {
+    logger.i("📤 [$method] Request to: $path");
+    if (query != null) logger.i("🔎 Query: $query");
+    if (data != null) logger.i("📦 Data: $data");
+    if (options?.headers != null) logger.i("🧾 Headers: ${options!.headers}");
+  }
+
+  void _logResponse(Response response) {
+    logger.i("✅ Response [${response.statusCode}] from ${response.requestOptions.path}");
+    logger.i("📨 Response data: ${response.data}");
+  }
 
   Future<Map<String, dynamic>> _handleResponse(Response response) async {
     final statusCode = response.statusCode;
@@ -38,7 +55,6 @@ class DioService {
       throw CustomException('Invalid response format');
     }
 
-    // Handle specific error cases
     switch (statusCode) {
       case 400:
         throw CustomException('Bad Request');
@@ -60,7 +76,7 @@ class DioService {
     }
   }
 
-  //get operations
+  // GET
   Future<Map<String, dynamic>> get(String path,
       {Map<String, dynamic>? queryParameters,
       Object? data,
@@ -69,20 +85,30 @@ class DioService {
       Options? options,
       String? sessionToken}) async {
     try {
-      final response = await _dio.get(path,
-          queryParameters: queryParameters,
-          data: data,
-          cancelToken: cancelToken,
-          onReceiveProgress: onReceiveProgress,
-          options: options ?? headers(sessionToken));
+      final opts = options ?? headers(sessionToken);
+      _logRequest('GET', path, data: data, query: queryParameters, options: opts);
+
+      final response = await _dio.get(
+        path,
+        queryParameters: queryParameters,
+        data: data,
+        cancelToken: cancelToken,
+        onReceiveProgress: onReceiveProgress,
+        options: opts,
+      );
+
+      _logResponse(response);
       return await _handleResponse(response);
     } on DioException catch (e) {
+      logger.e("❌ Dio GET error: ${e.message}");
       throw CustomException(e.message ?? 'Network error occurred');
     } catch (e) {
+      logger.e("❗ Unexpected GET error: $e");
       throw CustomException('An unexpected error occurred');
     }
   }
 
+  // POST
   Future<Map<String, dynamic>> post(String path,
       {Object? data,
       Map<String, dynamic>? queryParameters,
@@ -92,6 +118,9 @@ class DioService {
       Options? options,
       String? sessionToken}) async {
     try {
+      final opts = options ?? headers(sessionToken);
+      _logRequest('POST', path, data: data, query: queryParameters, options: opts);
+
       final response = await _dio.post(
         path,
         data: data,
@@ -99,17 +128,21 @@ class DioService {
         cancelToken: cancelToken,
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
-        options: options ?? headers(sessionToken),
+        options: opts,
       );
+
+      _logResponse(response);
       return await _handleResponse(response);
     } on DioException catch (e) {
+      logger.e("❌ Dio POST error: ${e.message}");
       throw CustomException(e.message ?? 'Network error occurred');
     } catch (e) {
+      logger.e("❗ Unexpected POST error: $e");
       throw CustomException('An unexpected error occurred');
     }
   }
 
-  //put operations
+  // PUT
   Future<Map<String, dynamic>> put(String path,
       {Map<String, dynamic>? queryParameters,
       Object? data,
@@ -119,22 +152,30 @@ class DioService {
       String? sessionToken,
       Options? option}) async {
     try {
-      final Response response = await _dio.put(
+      final opts = option ?? headers(sessionToken);
+      final requestData = payload ?? data;
+      _logRequest('PUT', path, data: requestData, query: queryParameters, options: opts);
+
+      final response = await _dio.put(
         path,
-        data: payload ?? data,
+        data: requestData,
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
-        options: option ?? headers(sessionToken),
+        options: opts,
       );
+
+      _logResponse(response);
       return await _handleResponse(response);
     } on DioException catch (e) {
+      logger.e("❌ Dio PUT error: ${e.message}");
       throw CustomException(e.message ?? 'Network error occurred');
     } catch (e) {
+      logger.e("❗ Unexpected PUT error: $e");
       throw CustomException('An unexpected error occurred');
     }
   }
 
-  //delete operations
+  // DELETE
   Future<Map<String, dynamic>> delete(String path,
       {Map<String, dynamic>? queryParameters,
       Object? data,
@@ -143,16 +184,24 @@ class DioService {
       String? sessionToken,
       Options? option}) async {
     try {
-      final Response response = await _dio.delete(
+      final opts = option ?? headers(sessionToken);
+      final requestData = payload ?? data;
+      _logRequest('DELETE', path, data: requestData, query: queryParameters, options: opts);
+
+      final response = await _dio.delete(
         path,
-        data: payload ?? data,
+        data: requestData,
         cancelToken: cancelToken,
-        options: option ?? headers(sessionToken),
+        options: opts,
       );
+
+      _logResponse(response);
       return await _handleResponse(response);
     } on DioException catch (e) {
+      logger.e("❌ Dio DELETE error: ${e.message}");
       throw CustomException(e.message ?? 'Network error occurred');
     } catch (e) {
+      logger.e("❗ Unexpected DELETE error: $e");
       throw CustomException('An unexpected error occurred');
     }
   }

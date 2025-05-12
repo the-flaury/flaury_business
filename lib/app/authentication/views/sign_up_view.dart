@@ -1,3 +1,4 @@
+import 'package:flaury_business/app/authentication/controllers/auth_controller.dart';
 import 'package:flaury_business/app/authentication/providers/password_visibility_provider.dart';
 import 'package:flaury_business/routes/app_routes.dart';
 import 'package:flaury_business/services/navigation_service.dart';
@@ -25,6 +26,7 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
   final TextEditingController _phonecontroller = TextEditingController();
+  final TextEditingController _usernamecontroller = TextEditingController();
 
   @override
   void dispose() {
@@ -33,6 +35,7 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
     _namecontroller.dispose();
     _passwordcontroller.dispose();
     _phonecontroller.dispose();
+    _usernamecontroller.dispose();
   }
 
   @override
@@ -71,6 +74,13 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                       height: SizeConfig.fromDesignHeight(context, 20),
                     ),
 
+                    AuthTextfield(
+                      hintext: 'Becca Braunch',
+                      obscureText: false,
+                      validator: Validator.nameValidator,
+                      controller: _usernamecontroller,
+                      label: 'Username',
+                    ),
                     //name textfield
                     AuthTextfield(
                       hintext: 'Becca Braunch',
@@ -128,10 +138,7 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                               : Icons.visibility),
                         )),
 
-                    SizedBox(
-                      height: SizeConfig.fromDesignHeight(context, 20),
-                    ),
-
+                    SizedBox(height: SizeConfig.fromDesignHeight(context, 20)),
                     //terms and condition text
                     RichText(
                         textAlign: TextAlign.center,
@@ -167,19 +174,36 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                           _namecontroller,
                           _phonecontroller,
                           _passwordcontroller,
+                          _usernamecontroller,
                         ]),
                         builder: (context, child) {
                           final enable = _emailcontroller.text.isNotEmpty &&
                               _namecontroller.text.isNotEmpty &&
                               _passwordcontroller.text.isNotEmpty &&
-                              _phonecontroller.text.isNotEmpty;
+                              _phonecontroller.text.isNotEmpty &&
+                              _usernamecontroller.text.isNotEmpty;
 
                           return enable
                               ? LargeButon(
+                                  isloading: ref
+                                          .watch(authControllerProvider)
+                                          .status ==
+                                      AuthStatus.loading,
                                   label: "Sign up",
                                   ontap: () {
-                                    navigation.pushReplacement(
-                                        route: AppRoutes.verification);
+                                    ref
+                                        .read(authControllerProvider.notifier)
+                                        .signUp(
+                                          _namecontroller.text,
+                                          _emailcontroller.text,
+                                          _phonecontroller.text,
+                                          _passwordcontroller.text,
+                                          _usernamecontroller.text,
+                                        )
+                                        .then((value) {
+                                      navigation.pushTo(
+                                          route: AppRoutes.verification);
+                                    });
                                   },
                                 )
                               : const LargeButonDisabled(
