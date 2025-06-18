@@ -14,19 +14,24 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this._dioService);
 
   @override
-  Future<RegisterResponse> signUp(String email, String password,
-      String firstName, String lastName, String userName) async {
+  Future<RegisterResponse> signUp(
+      {required String email,
+      required String password,
+      required String name,
+      required String userName,
+      required String phonenumber,
+      required String gender}) async {
     try {
       Map<String, dynamic> data = {
         "email": email,
-        "first_name": firstName,
-        "last_name": lastName,
+        "name": name,
         "password": password,
+        'phone_number': "+234$phonenumber",
         "role": "service provider",
         "type_of_service": "basic",
-        "username": userName,
+        'username': userName,
+        "gender": gender
       };
-
       final response = await _dioService.post(ApiRoutes.signUp, data: data);
 
       if (response["response status"] != "success") {
@@ -183,7 +188,6 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<ApiResponseModel> verifyEmail(String email, String code) async {
-    // TODO: implement verifyEmail
     try {
       Map<String, dynamic> data = {
         "email": email,
@@ -229,8 +233,13 @@ class AuthRepositoryImpl implements AuthRepository {
 }
 
 abstract class AuthRepository {
-  Future<RegisterResponse> signUp(String email, String password,
-      String firstName, String lastName, String userName);
+  Future<RegisterResponse> signUp(
+      {required String email,
+      required String password,
+      required String name,
+      required String userName,
+      required String phonenumber,
+      required String gender});
   Future<ApiResponseModel> logout();
   Future<LoginResponse> login(String email, String password);
 

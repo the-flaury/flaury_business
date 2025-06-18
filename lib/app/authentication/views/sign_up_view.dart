@@ -23,20 +23,21 @@ class SignUpView extends ConsumerStatefulWidget {
 
 class _SignUpViewState extends ConsumerState<SignUpView> {
   final GlobalKey _formkey = GlobalKey<FormState>();
-  final TextEditingController _lastnamecontroller = TextEditingController();
+  final TextEditingController _phonenumbercontroller = TextEditingController();
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
-  final TextEditingController _firstnamecontroller = TextEditingController();
   final TextEditingController _usernamecontroller = TextEditingController();
+  final TextEditingController _fullnamecontroller = TextEditingController();
+  String? _selsctedValue;
 
   @override
   void dispose() {
     super.dispose();
     _emailcontroller.dispose();
-    _lastnamecontroller.dispose();
+    _phonenumbercontroller.dispose();
     _passwordcontroller.dispose();
-    _firstnamecontroller.dispose();
     _usernamecontroller.dispose();
+    _fullnamecontroller.dispose();
   }
 
   @override
@@ -57,6 +58,7 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                 h: 20,
                 v: 0,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
                       height: SizeConfig.fromDesignHeight(context, 20),
@@ -74,36 +76,26 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                     SizedBox(
                       height: SizeConfig.fromDesignHeight(context, 20),
                     ),
-
+                    //  fullname field
                     AuthTextfield(
                       hintext: 'Becca Braunch',
+                      obscureText: false,
+                      validator: Validator.nameValidator,
+                      controller: _fullnamecontroller,
+                      label: 'Name',
+                    ),
+
+                    SizedBox(height: SizeConfig.fromDesignHeight(context, 20)),
+                    //  usernqame field
+                    AuthTextfield(
+                      hintext: 'BeccaBraunchy ',
                       obscureText: false,
                       validator: Validator.nameValidator,
                       controller: _usernamecontroller,
                       label: 'Username',
                     ),
-                    const AppSpacing(v: 20),
-                    //name textfield
-                    AuthTextfield(
-                      hintext: 'Becca Braunch',
-                      obscureText: false,
-                      validator: Validator.nameValidator,
-                      controller: _firstnamecontroller,
-                      label: 'First Name',
-                    ),
-
-                    const AppSpacing(v: 20),
-                    //name textfield
-                    AuthTextfield(
-                      hintext: 'Becca Braunch',
-                      obscureText: false,
-                      validator: Validator.nameValidator,
-                      controller: _lastnamecontroller,
-                      label: 'Last Name',
-                    ),
 
                     SizedBox(height: SizeConfig.fromDesignHeight(context, 20)),
-
                     //email textfield
                     AuthTextfield(
                       hintext: 'info@flaury.email.com',
@@ -113,11 +105,36 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                       label: 'Email Address',
                       keyboardType: TextInputType.emailAddress,
                     ),
-                    SizedBox(
-                      height: SizeConfig.fromDesignHeight(context, 20),
-                    ),
+                    const AppSpacing(v: 20),
 
-                    //password field
+                    //phonenumber field
+                    AuthTextfield(
+                      hintext: '+234 9153528174',
+                      obscureText: false,
+                      controller: _phonenumbercontroller,
+                      label: 'Phone Number',
+                      keyboardType: TextInputType.phone,
+                    ),
+                    const AppSpacing(v: 20),
+                    AppTextBold(text: 'Gender', fontSize: 14),
+                    const AppSpacing(v: 5),
+
+                    CustomDropDown(
+                      hint: 'select category',
+                      items: acceptableGender.map((item) {
+                        return DropdownMenuItem<String>(
+                          value: item,
+                          child: Text(item),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _selsctedValue =
+                              value; // Correctly update the selected value
+                        });
+                      },
+                    ),
+                    const AppSpacing(v: 20),
 
                     AuthTextfield(
                         hintext: 'Enter Your Password',
@@ -167,17 +184,17 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                     ListenableBuilder(
                         listenable: Listenable.merge([
                           _emailcontroller,
-                          _lastnamecontroller,
-                          _firstnamecontroller,
-                          _passwordcontroller,
+                          _phonenumbercontroller,
                           _usernamecontroller,
+                          _passwordcontroller,
+                          _fullnamecontroller,
                         ]),
                         builder: (context, child) {
                           final enable = _emailcontroller.text.isNotEmpty &&
-                              _lastnamecontroller.text.isNotEmpty &&
+                              _phonenumbercontroller.text.isNotEmpty &&
                               _passwordcontroller.text.isNotEmpty &&
-                              _firstnamecontroller.text.isNotEmpty &&
-                              _usernamecontroller.text.isNotEmpty;
+                              _usernamecontroller.text.isNotEmpty &&
+                              _fullnamecontroller.text.isNotEmpty;
 
                           return enable
                               ? LargeButon(
@@ -190,12 +207,15 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                                     ref
                                         .read(authControllerProvider.notifier)
                                         .signUp(
-                                          _emailcontroller.text,
-                                          _passwordcontroller.text,
-                                          _firstnamecontroller.text,
-                                          _lastnamecontroller.text,
-                                          _usernamecontroller.text,
-                                        )
+                                            email: _emailcontroller.text,
+                                            password: _passwordcontroller.text,
+                                            userName: _usernamecontroller.text,
+                                            gender: _selsctedValue ?? "",
+                                            name:
+                                                _fullnamecontroller.text.trim(),
+                                            phoneNumber: _phonenumbercontroller
+                                                .text
+                                                .trim())
                                         .then((value) {
                                       navigation.pushTo(
                                           route: AppRoutes.verification);
@@ -243,3 +263,5 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
     );
   }
 }
+
+final List<String> acceptableGender = ['male', 'female'];

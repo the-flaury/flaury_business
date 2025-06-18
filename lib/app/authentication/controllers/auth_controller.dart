@@ -54,23 +54,29 @@ final authControllerProvider =
       ref.read(authTokenManagerProvider));
 });
 
+// this contoller manages the authentication state of the app
 class AuthController extends StateNotifier<AuthState> {
   final AuthRepository authRepository;
   final AuthTokenManager _authTokenManager;
   AuthController(this.authRepository, this._authTokenManager)
       : super(AuthState.initial());
 
-  Future<void> signUp(String email, String password, String firstName,
-      String lastName, String userName) async {
+  Future<void> signUp(
+      {required String email,
+      required String password,
+      required String userName,
+      required String gender,
+      required String name,
+      required String phoneNumber}) async {
     state = AuthState.loading();
     try {
       final response = await authRepository.signUp(
-        email,
-        password,
-        firstName,
-        lastName,
-        userName,
-      );
+          password: password,
+          name: name,
+          userName: userName,
+          phonenumber: phoneNumber,
+          gender: gender,
+          email: email);
       // save tokens to secure storage
       await _authTokenManager.saveAuthToken(response.accessToken);
       await _authTokenManager.saveRefreshAuthToken(response.refreshToken);

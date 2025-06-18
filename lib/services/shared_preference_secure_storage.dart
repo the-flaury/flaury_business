@@ -70,6 +70,10 @@ class AuthTokenManager {
 
   AuthTokenManager({required this.secureStorage});
 
+  String get authToken => "auth_token";
+
+  String get refreshToken => "Refresh_token";
+
   Future<void> saveAuthToken(String token) async {
     await secureStorage.write('auth_token', token);
   }
